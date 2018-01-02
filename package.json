@@ -7,7 +7,7 @@
     "start": "run.py"
  },
  "dependencies": {
- "discord.py": "0.16.12",
- },
+ "discord.py": "0.16.12"
+ }
 }
     
