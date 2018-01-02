@@ -3,7 +3,7 @@
  "description": "Test",
  "version": "1.0.0",
  "main": "run.py",
- "scripts: {
+ "scripts": {
     "start": "run.py",
  },
  "dependencies": {
