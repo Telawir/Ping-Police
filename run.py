@@ -598,4 +598,4 @@ async def now(ctx):
     await client.say(embed=embed)
 
 
-client.run(token)
+client.login(process.env.Mzg5ODM3NzY5MjkzMTY4NjQx.DSrQCQ.WxMQ8VtpN2aCSA4hW1hO0NG6HSA)
