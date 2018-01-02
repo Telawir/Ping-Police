@@ -4,8 +4,8 @@
  "version": "1.0.0",
  "main": "run.py",
  "scripts": {
-    "start": "run.py",
-  },
+    "start": "run.py"
+ },
  "dependencies": {
  "discord.py": "0.16.12",
  }
