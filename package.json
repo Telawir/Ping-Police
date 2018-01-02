@@ -1,13 +1,13 @@
 {
  "name": "Glop Blop",
  "description": "Test",
- "version"; "1.0.0",
+ "version": "1.0.0",
  "main": "run.py",
  "scripts: {
     "start": "run.py",
  },
  "dependencies": {
- "discord.js": "11.1.0",
+ "discord.py": "0.16.12",
  },
 }
     
