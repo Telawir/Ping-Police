@@ -1,1 +1,1 @@
-worker: package.json
+worker: node run.py
