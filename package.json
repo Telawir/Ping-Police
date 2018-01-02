@@ -5,9 +5,9 @@
  "main": "run.py",
  "scripts": {
     "start": "run.py",
- },
+  },
  "dependencies": {
  "discord.py": "0.16.12",
- },
+ }
 }
     
