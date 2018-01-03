@@ -2,6 +2,8 @@ import discord
 import asyncio
 import config
 import time
+import os
+
 
 from config import token, link, prefix, ownerid
 from discord.ext.commands import Bot
@@ -596,6 +598,6 @@ async def now(ctx):
     embed = discord.Embed(color = embed_color)
     embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
     await client.say(embed=embed)
+#must import os
 
-
-client.login(process.env.Mzg5ODM3NzY5MjkzMTY4NjQx.DSrQCQ.WxMQ8VtpN2aCSA4hW1hO0NG6HSA);
+client.run(os.getenv('Mzg5ODM3NzY5MjkzMTY4NjQx.DSrQCQ.WxMQ8VtpN2aCSA4hW1hO0NG6HSA'))
