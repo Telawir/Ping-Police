@@ -4,7 +4,7 @@
  "version": "1.0.0",
  "main": "run.py",
  "scripts": {
-    "start": "node run.py"
+    "start": "python run.py"
  },
  "dependencies": {
  "discord.py": "0.16.12"
