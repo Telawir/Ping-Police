@@ -600,4 +600,4 @@ async def now(ctx):
     await client.say(embed=embed)
 #must import os
 
-client.run(os.getenv('Mzg5ODM3NzY5MjkzMTY4NjQx.DSrQCQ.WxMQ8VtpN2aCSA4hW1hO0NG6HSA'))
+client.run(os.getenv(BOT_TOKEN)
