@@ -263,6 +263,135 @@ async def unmute(ctx, *, member : discord.Member):
 #t3 - Clears The Chat
 
 @client.command(pass_context=True)       
+async def purge(ctx, number : int = 34871):
+    '''Clears The Chat 2-100'''
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    server = ctx.message.server
+    channel = ctx.message.channel
+    can_deletemessages = channel.permissions_for(server.me).manage_messages
+    can_sendmessages = channel.permissions_for(server.me).send_messages
+
+    if  not can_sendmessages:
+        return 
+    
+    if ctx.message.author.server_permissions.manage_messages == False:
+        borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        try: 
+            await client.delete_message(borg)
+        except:
+            return
+        return
+    
+    if  not can_deletemessages:
+        perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        try: 
+            await client.delete_message(perm)
+        except:
+            return
+        return
+    
+    if number == 34871:
+        terp = await client.say(ctx.message.author.mention + " No message number was selected." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        try: 
+            await client.delete_message(terp)
+            return
+        except:
+            return
+        return
+                                
+    if not number > 1 or not number < 101:
+        dekr = await client.say(ctx.message.author.mention + " You can only delete messages in the range of [2, 100]." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        try: 
+            await client.delete_message(dekr)
+        except:
+            return
+        return
+        
+    pass
+
+    try:
+        await client.delete_message(ctx.message)
+    except:
+        print('o')
+        return
+    mgs = []
+    number1 = int(number)
+    try:
+        async for x in client.logs_from(ctx.message.channel, limit = number1):
+            mgs.append(x)
+
+    except:
+        print('no chyba nie')
+        return
+
+    try:
+        await client.delete_messages(mgs)
+        number = str(number1)
+    except Exception as e:
+        if 'BAD REQUEST' in str(e):
+            miser = await client.say(ctx.message.author.mention + " I can only bulk delete messages that are under 14 days old." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            try:
+                await client.delete_message(miser)
+            except:
+                return
+            return
+        if 'Forbidden' in str(e):
+            miss = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            try:
+                await client.delete_message(miss)
+            except:
+                return
+            return
+        if 'Unknown Message' in str(e):
+            miss = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            try:
+                await client.delete_message(miss)
+            except:
+                return
+            return
+        else:
+            print("errorcode" + '\n' + str(e)  + '\n Channel: '+ str(channel)  + ', channel ID: ' + str(channel.id)  + '\n Server: ' + str(server)  + ', server ID: ' + str(server.id))
+            bula = await client.say(ctx.message.author.mention + " No messages to delete." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")         
+            await asyncio.sleep(10)
+            try:
+                await client.delete_message(bula)
+            except:
+                return
+            return
+        return
+ 
+    number2 = str(number1)
+    if number2 == 1:
+        done = await client.say(":white_check_mark: Successfully deleted one message from the <#" + str(channel.id) + ">" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+    else:    
+        done = await client.say(":white_check_mark: Successfully deleted " + (number2) + " messages from the <#" + str(channel.id) + ">" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+    await asyncio.sleep(10)
+    
+    try:
+        await client.delete_message(done)
+    except Exception as e:
+        if 'NOT FOUND' in str(e):
+            print('ab')
+            return
+        if 'Not Found' in str(e):
+            print('cd')
+            return
+        if 'NotFound' in str(e):
+            print('ef')
+            return
+        else:
+            print('szapa')
+            return
+    return
+
+@client.command(pass_context=True)       
 async def clear(ctx, number : int = 348):
     '''Clears The Chat 2-100'''
     user_roles = [r.name.lower() for r in ctx.message.author.roles] 
