@@ -265,15 +265,23 @@ async def unmute(ctx, *, member : discord.Member):
 @client.command(pass_context=True)       
 async def clear(ctx, number : int = 348):
     '''Clears The Chat 2-100'''
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-
+    user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+    channel = ctx.message.channel
+    server = ctx.message.server
+    can_del = channel.permissions_for(server.me).manage_messages
+    
     if ctx.message.author.server_permissions.manage_messages == False:
         borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(borg)
         return
+    if not can_del:
+        bory = await client.say(ctx.message.author.mention + " Manage messages permission required. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(bory)
+        return
     if number == 348:
-        terp = await client.say(ctx.message.author.mention + " No message number was selected" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        terp = await client.say(ctx.message.author.mention + " No message number was selected. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(terp)
         return
@@ -291,7 +299,7 @@ async def clear(ctx, number : int = 348):
         try:
             await client.delete_messages(mgs)
         except:
-            miss = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            miss = await client.say(ctx.message.author.mention + " I can't delete these messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(miss)
             return
