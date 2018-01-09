@@ -225,10 +225,16 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
     ujoin.set_footer(text ='Glop Blop v1.0');
 
     if reason == 1:
-        await client.say(embed = ujoin);
+        try:
+            await client.say(embed = ujoin);
+        except:
+            await client.say(str(member) + "has been muted for 5 minutes by " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
     else:
-        await client.say(embed = join);
-            
+        try:
+            await client.say(embed = join);
+        except:
+            await client.say(str(member) + "has been muted for 5 minutes by " + str(ctx.message.author) + ".")
+    
     await asyncio.sleep(300)
     role = discord.utils.get(server.roles,name="Silenced")
     member_roles = [r.name.lower() for r in member.roles]
