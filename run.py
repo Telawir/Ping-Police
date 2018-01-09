@@ -103,7 +103,7 @@ async def serverinvite(ctx):
 @client.command(pass_context = True)
 async def serverbans(ctx):
     '''Gets a list of banned users'''  
-    if ctx.message.author.server_permissions.viev_audit_log == False:
+    if ctx.message.author.server_permissions.viev_audit.log == False:
         perm = await client.say(ctx.message.author.mention + " You do not have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(perm)
