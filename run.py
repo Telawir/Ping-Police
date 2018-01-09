@@ -237,11 +237,13 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.say(embed = ujoin);
         except:
             await client.say("Moderator: " + str(ctx.message.author))
+            return
     else:
         try:
             await client.say(embed = join);
         except:
             await client.say("Moderator: " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
+            return
     
     await asyncio.sleep(300)
     role = discord.utils.get(server.roles,name="Silenced")
