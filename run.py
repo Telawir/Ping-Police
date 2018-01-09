@@ -117,7 +117,7 @@ async def serverbans(ctx):
         return
     
     x = '\n'.join([y.name for y in x])
-    embed = discord.Embed(title = "List of The Banned Idiots", description = x, color = 0xFFFFF)
+    embed = discord.Embed(title = "List of the banned users", description = x, color = 0xFFFFF)
     try:
         await client.say(embed = embed);
     except:
