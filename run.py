@@ -216,7 +216,7 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
     pass
 
     await client.add_roles(member, role)
-    mutestart = await client.say(":mute: **%s** is now Muted for 5 minutes! Wait For an Unmute."%member.mention)
+    mutestart = await client.say(":mute: **%s** is now muted for 5 minutes! Wait for an unmute "%member.mention)
     channel = ctx.message.channel
     
     join = discord.Embed(description="trutututut",title = "Wyciszenie", colour = 0xFF7A00);
@@ -236,12 +236,12 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
         try:
             await client.say(embed = ujoin);
         except:
-            await client.say(str(member) + "has been muted for 5 minutes by " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
+            await client.say("Moderator: " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
     else:
         try:
             await client.say(embed = join);
         except:
-            await client.say(str(member) + "has been muted for 5 minutes by " + str(ctx.message.author) + ".")
+            await client.say("Moderator: " + str(ctx.message.author) + ".")
     
     await asyncio.sleep(300)
     role = discord.utils.get(server.roles,name="Silenced")
