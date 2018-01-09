@@ -103,7 +103,7 @@ async def serverinvite(ctx):
 @client.command(pass_context = True)
 async def serverbans(ctx):
     '''Gets a list of banned users'''  
-    if ctx.message.author.server_permissions.viev_audit_log == False:
+    if ctx.message.author.server_permissions.manage_messages == False:
         erg = await client.say(ctx.message.author.mention + " You do not have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(erg)
@@ -111,7 +111,7 @@ async def serverbans(ctx):
     try:
         x = await client.get_bans(ctx.message.server)
     except:
-        miss = await client.say(ctx.message.author.mention + " Missing permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        miss = await client.say(ctx.message.author.mention + " I don't have permissions to do that." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(miss)
         return
