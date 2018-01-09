@@ -104,7 +104,7 @@ async def serverinvite(ctx):
 async def serverbans(ctx):
     '''Gets a list of banned users'''  
     if ctx.message.author.server_permissions.manage_server == False:
-        erg = await client.say(ctx.message.author.mention + " You do not have permission to view audit log.' + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        erg = await client.say(ctx.message.author.mention + " You do not have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(erg)
         return
