@@ -193,13 +193,21 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
 
     server = ctx.message.server
     role = discord.utils.get(server.roles,name="Silenced")
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    channel = ctx.message.channel
+    can_manage_roles = channel.permissions_for(server.me).manage_roles
 
     if ctx.message.author.server_permissions.administrator == False:
-        perm = await client.say(ctx.message.author.mention + " You do not have admin permissions" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(perm)
         return
+    
+    if can_manage_roles == False:
+        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(botperm)
+        return     
+    
     if member == None:
         ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
