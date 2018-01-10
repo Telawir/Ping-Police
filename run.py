@@ -19,12 +19,6 @@ async def on_ready():
     print("ID: %s"%client.user.id)
     print("----------------------")
 
-@client.async_event
-async def on_member_join(Member : discord.User):
-    await bot.get_server
-        if server or server.id == 359426518730145802
-            channellope == 359429540537171968
-            await bot.send_message(channelope," please welcome our newest user "+Member.name)
 
 #m1 
 @client.command(pass_context=True)
