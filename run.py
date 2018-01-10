@@ -23,7 +23,8 @@ async def on_ready():
 async def on_member_join(Member : discord.User):
     await bot.get_server
         if server or server.id == 359426518730145802
-            await bot.send_message(server.id," please welcome our newest user "+Member.name)
+            channellope == 359429540537171968
+            await bot.send_message(channelope," please welcome our newest user "+Member.name)
             return
 
 #m1 
