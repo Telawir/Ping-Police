@@ -104,6 +104,7 @@ async def serverinvite(ctx):
 async def serverbans(ctx):
     '''Gets a list of banned users'''  
     if ctx.message.author.server_permissions.manage_server == False:
+        
         erg = await client.say(ctx.message.author.mention + " You do not have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(erg)
@@ -268,10 +269,13 @@ async def unmute(ctx, *, member : discord.Member):
     user_roles = [r.name.lower() for r in ctx.message.author.roles]
     
     if ctx.message.author.server_permissions.administrator == False:
-        perm = await client.say(ctx.message.author.mention + " You're not server admin." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(perm)        
-        return
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            perm = await client.say(ctx.message.author.mention + " You're not server admin." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(perm)        
+            return
     if "silenced" not in member_roles:
         pedro = await client.say(ctx.message.author.mention + " I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
@@ -299,14 +303,17 @@ async def purge(ctx, number : int = 34871):
         return 
     
     if ctx.message.author.server_permissions.manage_messages == False:
-        borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        try: 
-            await client.delete_message(borg)
-        except:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            try: 
+                await client.delete_message(borg)
+            except:
+                return
             return
-        return
-    
+            
     if  not can_deletemessages:
         perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
@@ -424,10 +431,13 @@ async def clear(ctx, number : int = 0):
     can_del = channel.permissions_for(server.me).manage_messages
     
     if ctx.message.author.server_permissions.manage_messages == False:
-        borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(borg)
-        return
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(borg)
+            return
     if not can_del:
         bory = await client.say(ctx.message.author.mention + " Manage messages permission required. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
@@ -475,10 +485,13 @@ async def kick(ctx, *, member : discord.Member=None):
 
 
     if ctx.message.author.server_permissions.kick_members == False:
-        perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(perm)
-        return
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(perm)
+            return
     
     if not can_kick:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
@@ -618,10 +631,13 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     author = ctx.message.author
 
     if ctx.message.author.server_permissions.ban_members == False:
-        missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(missed)
-        return
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(missed)
+            return
 
     if not can_ban:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
