@@ -413,7 +413,7 @@ async def purge(ctx, number : int = 34871):
     return
 
 @client.command(pass_context=True)       
-async def clear(ctx, number : int = 348):
+async def clear(ctx, number : int = 0):
     '''Clears The Chat 2-100'''
     user_roles = [r.name.lower() for r in ctx.message.author.roles] 
     channel = ctx.message.channel
@@ -430,8 +430,8 @@ async def clear(ctx, number : int = 348):
         await asyncio.sleep(10)
         await client.delete_message(bory)
         return
-    if number == 348:
-        terp = await client.say(ctx.message.author.mention + " No message number was selected. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+    if number == 0:
+        terp = await client.say(ctx.message.author.mention + " Please specify a valid number of messages to delete" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(terp)
         return
