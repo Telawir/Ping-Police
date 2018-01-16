@@ -518,10 +518,13 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
     can_ban = channel.permissions_for(server.me).ban_members
   
     if ctx.message.author.server_permissions.ban_members == False:
-        missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(missed)
-        return
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:
+            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(missed)
+            return
     
     if not can_ban:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
