@@ -685,7 +685,28 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         await client.delete_message(clog)
     except Exception as e:
         print(e)
+        
+#t7
 
+@client.command(pass_context = True)
+
+async def lockdown(ctx):
+    server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = False
+    await client.edit_channel_permissions(channel, roleks, overwrite) 
+    
+async def unlock(ctx):
+    server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = True
+    await client.edit_channel_permissions(channel, roleks, overwrite)     
+    
+    
  ###############################----------------------########################### 
 
 @client.command(pass_context = True)
