@@ -195,7 +195,7 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
     '''Mutes A Memeber'''
 
     server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Silenced")
+    role = discord.utils.get(server.roles,name="Muted")
     channel = ctx.message.channel
     can_manage_roles = channel.permissions_for(server.me).manage_roles
 
@@ -266,7 +266,7 @@ async def unmute(ctx, *, member : discord.Member):
     '''Unmutes The Muted Memeber'''
     
     server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Silenced")
+    role = discord.utils.get(server.roles,name="Muted")
     member_roles = [r.name.lower() for r in member.roles]
     user_roles = [r.name.lower() for r in ctx.message.author.roles]
     
@@ -689,6 +689,17 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
 #t7
 @client.command(pass_context = True)
 async def lockdown(ctx):
+    channel = ctx.message.channel
+    server = ctx.message.server
+    
+    if ctx.message.author.server_permissions.manage_channels == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(korg)
+            return
     server = ctx.message.server
     roleks = server.default_role
     channel = ctx.message.channel
@@ -699,6 +710,14 @@ async def lockdown(ctx):
 #t8
 @client.command(pass_context = True)
 async def unlock(ctx):
+    if ctx.message.author.server_permissions.manage_channels == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            burg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(burg)
+            return
     server = ctx.message.server
     roleks = server.default_role
     channel = ctx.message.channel
