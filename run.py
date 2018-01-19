@@ -687,9 +687,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         print(e)
         
 #t7
-
 @client.command(pass_context = True)
-
 async def lockdown(ctx):
     server = ctx.message.server
     roleks = server.default_role
@@ -697,7 +695,9 @@ async def lockdown(ctx):
     overwrite = discord.PermissionOverwrite()
     overwrite.send_messages = False
     await client.edit_channel_permissions(channel, roleks, overwrite) 
-    
+
+#t8
+@client.command(pass_context = True)
 async def unlock(ctx):
     server = ctx.message.server
     roleks = server.default_role
