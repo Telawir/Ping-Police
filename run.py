@@ -722,7 +722,8 @@ async def unlock(ctx):
     roleks = server.default_role
     channel = ctx.message.channel
     overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = True
+    overwrite.send_messages = None
+
     await client.edit_channel_permissions(channel, roleks, overwrite)     
     
     
