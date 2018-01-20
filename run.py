@@ -254,7 +254,7 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
     await asyncio.sleep(300)
     role = discord.utils.get(server.roles,name="Mute")
     member_roles = [r.name.lower() for r in member.roles]
-    if "silenced" in member_roles:
+    if "mute" in member_roles:
         await client.remove_roles(member, role)
         mutestop = await client.say(":loud_sound: **%s** is now Unmuted!"%member.mention)   
     return
@@ -278,7 +278,7 @@ async def unmute(ctx, *, member : discord.Member):
             await asyncio.sleep(10)
             await client.delete_message(perm)        
             return
-    if "silenced" not in member_roles:
+    if "mute" not in member_roles:
         pedro = await client.say(ctx.message.author.mention + " I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(pedro)        
