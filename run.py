@@ -195,7 +195,7 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
     '''Mutes A Memeber'''
 
     server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Muted")
+    role = discord.utils.get(server.roles,name="Mute")
     channel = ctx.message.channel
     can_manage_roles = channel.permissions_for(server.me).manage_roles
 
@@ -252,7 +252,7 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
             return
     
     await asyncio.sleep(300)
-    role = discord.utils.get(server.roles,name="Silenced")
+    role = discord.utils.get(server.roles,name="Mute")
     member_roles = [r.name.lower() for r in member.roles]
     if "silenced" in member_roles:
         await client.remove_roles(member, role)
@@ -266,7 +266,7 @@ async def unmute(ctx, *, member : discord.Member):
     '''Unmutes The Muted Memeber'''
     
     server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Muted")
+    role = discord.utils.get(server.roles,name="Mute")
     member_roles = [r.name.lower() for r in member.roles]
     user_roles = [r.name.lower() for r in ctx.message.author.roles]
     
