@@ -39,15 +39,17 @@ async def help(ctx):
     t1 = str("**mute [user] <reason>**   :: Mutes a member (requires Silenced role)")
     t2 = str("**unmute [user]**                 :: Unmutes a member:")
     t3 = str("**purge [amount]**               :: Deletes 2-100 messages from the channel")
-    t4 = str("**kick [user]**                        :: Kicks a member")
-    t5 = str("**ban [user] <reason>**      :: Bans a member")
-    t6 = str("**soft [user] <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
+    t4 = str("**lockdown**                          :: Locks the channel down.")
+    t5 = str("**unlock**                        :: Unlocks the channel.")    
+    t6 = str("**kick [user]**                        :: Kicks a member")
+    t7 = str("**ban [user] <reason>**      :: Bans a member")
+    t8 = str("**soft [user] <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
 
 
     got = str(pref0)     
     mwot = str(m1 + '\n' + m2 + '\n' + m3 + '\n' + m4) 
     gwot = str(g1 + '\n' + g2 + '\n' + g3 + '\n' + g4)
-    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + t5 + '\n' + t6)
+    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + t5 + '\n' + t6 + '\n' + t7 + '\n' + t8)
     
     join = discord.Embed(title = 'All the available bot commands', description = 'Glop Blop v1.0', colour = 0x0085ff);
     join.add_field(name = '> Prefix:', value = 'The current bot prefix is **' + str(pref0) + '**');
@@ -424,57 +426,48 @@ async def purge(ctx, number : int = 34871):
             return
     return
 
-@client.command(pass_context=True)       
-async def clear(ctx, number : int = 0):
-    '''Clears The Chat 2-100'''
-    user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+#t4
+@client.command(pass_context = True)
+async def lockdown(ctx):
     channel = ctx.message.channel
     server = ctx.message.server
-    can_del = channel.permissions_for(server.me).manage_messages
     
-    if ctx.message.author.server_permissions.manage_messages == False:
+    if ctx.message.author.server_permissions.manage_channels == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(borg)
+            await client.delete_message(korg)
             return
-    if not can_del:
-        bory = await client.say(ctx.message.author.mention + " Manage messages permission required. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(bory)
-        return
-    if number == 0:
-        terp = await client.say(ctx.message.author.mention + " Please specify a valid number of messages to delete" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(terp)
-        return
-    if number < 2 or number > 100:
-        dekr = await client.say(ctx.message.author.mention + " You can only delete messages in the range of [2, 100]" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(dekr)
-        return
+    server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = False
+    await client.edit_channel_permissions(channel, roleks, overwrite) 
 
-    pass
-    mgs = []
-    number = int(number)
-    async for x in client.logs_from(ctx.message.channel, limit = number):
-        mgs.append(x)
-        try:
-            await client.delete_messages(mgs)
-        except:
-            miss = await client.say(ctx.message.author.mention + " I can't delete these messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+#t5
+@client.command(pass_context = True)
+async def unlock(ctx):
+    if ctx.message.author.server_permissions.manage_channels == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            burg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(miss)
+            await client.delete_message(burg)
             return
-    number = str(number)
-    done = await client.say(":white_check_mark: Successfully deleted " + (number) + " messages.")
-    await asyncio.sleep(5)
-    await client.delete_message(done)
-    return
+    server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = None
 
-#t4 - Kicks a Member From The Server
+    await client.edit_channel_permissions(channel, roleks, overwrite)     
+    
+
+#t6 - Kicks a Member From The Server
 
 @client.command(pass_context = True)
 async def kick(ctx, *, member : discord.Member=None):
@@ -525,7 +518,7 @@ async def kick(ctx, *, member : discord.Member=None):
     except:
         await client.say("**%s** has been kicked."%member.name)   
     
-#t5 - BAN DZIALA #
+#t7 - BAN DZIALA #
 
 @client.command(pass_context = True)
 async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
@@ -622,7 +615,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.say(str(member) + " has been banned. Reason:" + str(reason))
     return
 
-#t6
+#t8
 
 @client.command(pass_context=True)
 async def soft(ctx, user: discord.Member = None, *, reason: str = None):
@@ -686,46 +679,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     except Exception as e:
         print(e)
         
-#t7
-@client.command(pass_context = True)
-async def lockdown(ctx):
-    channel = ctx.message.channel
-    server = ctx.message.server
-    
-    if ctx.message.author.server_permissions.manage_channels == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(korg)
-            return
-    server = ctx.message.server
-    roleks = server.default_role
-    channel = ctx.message.channel
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = False
-    await client.edit_channel_permissions(channel, roleks, overwrite) 
 
-#t8
-@client.command(pass_context = True)
-async def unlock(ctx):
-    if ctx.message.author.server_permissions.manage_channels == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            burg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(burg)
-            return
-    server = ctx.message.server
-    roleks = server.default_role
-    channel = ctx.message.channel
-    overwrite = discord.PermissionOverwrite()
-    overwrite.send_messages = None
-
-    await client.edit_channel_permissions(channel, roleks, overwrite)     
-    
     
  ###############################----------------------########################### 
 
