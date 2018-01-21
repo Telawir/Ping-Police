@@ -40,7 +40,7 @@ async def help(ctx):
     t2 = str("**unmute [user]**                 :: Unmutes a member:")
     t3 = str("**purge [amount]**               :: Deletes 2-100 messages from the channel")
     t4 = str("**lockdown**                          :: Locks the channel down.")
-    t5 = str("**unlock**                        :: Unlocks the channel.")    
+    t5 = str("**unlock**                            :: Unlocks the channel.")    
     t6 = str("**kick [user]**                        :: Kicks a member")
     t7 = str("**ban [user] <reason>**      :: Bans a member")
     t8 = str("**soft [user] <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
