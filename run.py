@@ -471,9 +471,9 @@ async def unlock(ctx):
     try:
         await client.edit_channel_permissions(channel, roleks, overwrite)
     except:
-        await client.say("I don't have permission to edit channels")
+        await client.say("I don't have permission to edit channels.")
         return
-    await client.say("The channel has been unlocked.")         
+    await client.say("The channel has been unlocked.")        
     
 
 #t6 - Kicks a Member From The Server
