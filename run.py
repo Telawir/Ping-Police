@@ -445,7 +445,12 @@ async def lockdown(ctx):
     channel = ctx.message.channel
     overwrite = discord.PermissionOverwrite()
     overwrite.send_messages = False
-    await client.edit_channel_permissions(channel, roleks, overwrite) 
+    try:
+        await client.edit_channel_permissions(channel, roleks, overwrite)
+    except:
+        await client.say("I don't have permission to edit channels.")
+        return
+    await client.say("The channel has been locked.")    
 
 #t5
 @client.command(pass_context = True)
@@ -463,8 +468,12 @@ async def unlock(ctx):
     channel = ctx.message.channel
     overwrite = discord.PermissionOverwrite()
     overwrite.send_messages = None
-
-    await client.edit_channel_permissions(channel, roleks, overwrite)     
+    try:
+        await client.edit_channel_permissions(channel, roleks, overwrite)
+    except:
+        await client.say("I don't have permission to edit channels")
+        return
+    await client.say("The channel has been unlocked.")         
     
 
 #t6 - Kicks a Member From The Server
