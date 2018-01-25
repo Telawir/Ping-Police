@@ -429,8 +429,10 @@ async def purge(ctx, number : int = 34871):
 #t4
 @client.command(pass_context = True)
 async def lockdown(ctx):
-    channel = ctx.message.channel
     server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel
+    can_deletemessages = channel.permissions_for(server.me).manage_messages
     
     if ctx.message.author.server_permissions.manage_channels == False:
         if ctx.message.author.id == (ownerid):
@@ -439,12 +441,16 @@ async def lockdown(ctx):
             korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
-            return
-    server = ctx.message.server
-    roleks = server.default_role
-    channel = ctx.message.channel
+            return        
+    if not can_deletemessages:
+        wong = await client.say(ctx.message.author.mention + " I don't have permission to lock this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(wong)
+        return  
+        
     overwrite = discord.PermissionOverwrite()
     overwrite.send_messages = False
+    
     try:
         await client.edit_channel_permissions(channel, roleks, overwrite)
     except:
@@ -455,6 +461,12 @@ async def lockdown(ctx):
 #t5
 @client.command(pass_context = True)
 async def unlock(ctx):
+    
+    server = ctx.message.server
+    roleks = server.default_role
+    channel = ctx.message.channel    
+    can_deletemessages = channel.permissions_for(server.me).manage_messages
+
     if ctx.message.author.server_permissions.manage_channels == False:
         if ctx.message.author.id == (ownerid):
             pass
@@ -463,11 +475,15 @@ async def unlock(ctx):
             await asyncio.sleep(10)
             await client.delete_message(burg)
             return
-    server = ctx.message.server
-    roleks = server.default_role
-    channel = ctx.message.channel
+    if not can_deletemessages:
+        wong = await client.say(ctx.message.author.mention + " I don't have permission to unlock this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(wong)
+        return
+    
     overwrite = discord.PermissionOverwrite()
     overwrite.send_messages = None
+    
     try:
         await client.edit_channel_permissions(channel, roleks, overwrite)
     except:
@@ -515,7 +531,7 @@ async def kick(ctx, *, member : discord.Member=None):
         await client.kick(member)
     except Exception as e:
         if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention + " You can't ban this user" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(lol)
             return
@@ -567,33 +583,14 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
         self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(self)
-        return
-
-    if "admin" in member_roles:
-        adme = await client.say(ctx.message.author.mention + ", you cannot ban an admin." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(adme)
-        return
-    
-    if "moderator" in member_roles:
-        mode = await client.say(ctx.message.author.mention + ", you cannot ban a moderator." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(mode)
-        return
-
-    if "mod bot" in member_roles:
-        modb = await client.say(ctx.message.author.mention + ", you cannot ban a bot moderator." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(modb)
-        return
-   
+        return   
     pass
                
     try:
         await client.ban(member)
     except Exception as e:
         if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention +  " You can't ban this user" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            lol = await client.say(ctx.message.author.mention +  " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(lol)
             return
