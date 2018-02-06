@@ -10,7 +10,6 @@ from discord.ext.commands import Bot
 
 client = Bot(prefix)
 client.remove_command('help')
-client.change_presence(game=discord.Game(name="p.help"))
 
 @client.event
 async def on_ready():
@@ -19,7 +18,6 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print("----------------------")
-    await client.change_presence(game=discord.Game(name=game)) 
 
 #m1 
 @client.command(pass_context=True)
