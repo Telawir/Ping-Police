@@ -25,10 +25,6 @@ async def on_message(message):
     if message.content.startswith('Raid'):
         msg = 'Raid @everyone'.format(message)
         try:
-            await client.delete_message(message)
-        except:
-            server = message.server
-        try:
             await client.send_message(message.channel, msg)
         except:
             server = message.server
