@@ -176,7 +176,7 @@ async def serverinfo(ctx):
         embed = discord.Embed(description= "(ID: " + str(server.id) + ")",title = 'Info on ' + str(server), colour = 0x0085ff);
         embed.set_thumbnail(url = server.icon_url);
         embed.add_field(name = ' > Channels', value = "* " + str(channels) + " channels" + '\n' + "* AFK: " + str(server.afk_channel) + '\n' + "* AFK Timeout: " + str(server.afk_timeout));
-        embed.add_field(name = ' > Members', value = "* " + str(server.member_count) + " members" + '\n' + "* Owner: " + str(server.owner) + '\n' + "* Onwer ID: " + str(server.owner.id));
+        embed.add_field(name = ' > Members', value = "* " + str(server.member_count) + " members" + '\n' + "* Owner: " + str(server.owner) + '\n' + "* Owner ID: " + str(server.owner.id));
         embed.add_field(name = ' > Other', value = "* Server Region: '%s'"%str(server.region) + '\n' + "* Created on: " + server.created_at.__format__(' %d %B %Y at %H:%M:%S') + '\n' + "* Verification Level: " + str(server.verification_level) + '\n' + "* Roles: '%s'"%str(role_length));
 
         try:
