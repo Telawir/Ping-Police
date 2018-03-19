@@ -24,17 +24,17 @@ async def on_ready():
 async def help(ctx):
     pref0 = str(prefix)
     author = ctx.message.author
-   
+#Ordinary BOT COMMANDS   
     m1 = str("**help**               :: Shows this message")
     m2 = str("**ping**               :: Checks if the bot works")
     m3 = str("**setgame**       :: Sets my game (owner only)")
     m4 = str("**botinvite**      :: Gives you a link to invite this bot to your server")
-    
+#Server commands    
     g1 = str("**serverinvite**         :: Gives you an invitation link to this server")
     g2 = str("**serverbans**                    :: Gets a list of banned users")    
     g3 = str("**userinfo [user]**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
-
+#Moderation commands
     t1 = str("**mute [user] <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
     t2 = str("**unmute [user]**                 :: Unmutes a member:")
     t3 = str("**purge [amount]**               :: Deletes 2-100 messages from the channel")
@@ -687,7 +687,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
 
     
  ###############################----------------------########################### 
-
+                                ##~~~~In DEVELOPMENT ~~~~####
 @client.command(pass_context = True)
 async def warn(ctx, *, member : discord.Member, reason : str = 1, n : str = 1):
 
