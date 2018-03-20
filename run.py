@@ -698,9 +698,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     channel = ctx.message.channel
     can_manage_roles = channel.permissions_for(server.me).manage_roles
     can_send_messages = channel.permissions_for(server.me).send_messages
-    
-    await client.say("0 succeed")
-    
+      
     if not belo == 359426518730145802: #checks if the command runs on my private 
         await client.say("ugabanga!")
         return
@@ -712,8 +710,6 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
-        
-    await client.say("1 succeed")
     
     if can_manage_roles == False:
         botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
@@ -736,8 +732,6 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         await client.delete_message(reasonres)
         return
     pass
-
-    await client.say("2 succeed")
 
     blindedrole = discord.utils.get(server.roles,name="Blinded")
     warn1role = discord.utils.get(server.roles,name="First warning")
@@ -789,8 +783,6 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             return
         warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your first warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
         return
-
-    await client.say("Done.")
     
 @client.command(pass_context=True, hidden = True)
 async def report(ctx, user: discord.Member, *, reason):
