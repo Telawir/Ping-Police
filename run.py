@@ -693,15 +693,14 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
 async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     
     server = ctx.message.server
-    belo = int(server.id)
     role = discord.utils.get(server.roles,name="Mute")
     channel = ctx.message.channel
     can_manage_roles = channel.permissions_for(server.me).manage_roles
     can_send_messages = channel.permissions_for(server.me).send_messages
-      
-    if not belo == 359426518730145802: #checks if the command runs on my private 
-        await client.say("ugabanga!")
-        return
+    #belo = int(server.id)  
+    #if not belo == 359426518730145802: #checks if the command runs on my private 
+        #await client.say("ugabanga!")
+        #return
     if ctx.message.author.server_permissions.administrator == False:
         if ctx.message.author.id == (ownerid):
             pass
