@@ -688,6 +688,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     
  ###############################----------------------########################### 
                                 ##~~~~In DEVELOPMENT ~~~~####
+    
 @client.command(pass_context = True)
 async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     
