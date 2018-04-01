@@ -2,7 +2,6 @@ To-do list:
 
 * Dodać wyciszenie czasowe
 
-
 Done:
 Zmienienie systemu blokad kanałów (01.04.2018)
   - Zmiana w komendach lockdown, unlock i slock - bot nadpisuje wyłącznie uprawnienie pisania wiadomości, nie zmienia   
@@ -14,3 +13,5 @@ Wprowadzenie pół-automatycznego systemu ostrzeżeń (01.04.2018)
   - Zmiany w komunikatach o niemożności przyznania w/w ról; dodanie wzmianki o tym, że brak możliwości przyznania roli  
     użytkownikowi może być spowodowany nie tylko brakiem odpowiednich uprawnień bota lub moderatora lub brakiem danej roli w liście
     ról na serwerze, ale też tym, że najwyższa rola, którą posiada bot jest niższa od roli oślepionego lub roli-ostrzeżenia.
+  - Dodanie automatycznego wysyłania do użytkownika informacji o oślepieniu na serwerze po otrzymaniu ostrzeżenia, gdy użytkownik 
+    posiadał trzy ostrzeżenia.
