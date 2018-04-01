@@ -1,7 +1,6 @@
 To-do list:
 
-Dodać wyciszenie czasowe
-Wprowadzić system ostrzeżeń 
+* Dodać wyciszenie czasowe
 
 
 Done:
@@ -10,4 +9,8 @@ Zmienienie systemu blokad kanałów (01.04.2018)
     pozostałcyh uprawnień roli @everyone dla danego kanału lub serwera.
     
 Wprowadzenie pół-automatycznego systemu ostrzeżeń (01.04.2018)
-  - Jeśli w liście roli na serwerze znajdują się role na sssss
+  - Jeśli w liście roli na serwerze znajdują się role First warning, Second warning, Third warning, Blinded, to po użyciu komendy 
+    warn użytkownik otrzyma automatycznie rolę w hierarchii wyższą od najwyższej z ról-ostreżeń posiadanych obecnie. 
+  - Zmiany w komunikatach o niemożności przyznania w/w ról; dodanie wzmianki o tym, że brak możliwości przyznania roli  
+    użytkownikowi może być spowodowany nie tylko brakiem odpowiednich uprawnień bota lub moderatora lub brakiem danej roli w liście
+    ról na serwerze, ale też tym, że najwyższa rola, którą posiada bot jest niższa od roli oślepionego lub roli-ostrzeżenia.
