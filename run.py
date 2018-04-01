@@ -307,7 +307,19 @@ async def purge(ctx, number : int = 34871):
     if  not can_sendmessages:
         return 
     
-    if ctx.message.author.server_permissions.manage_messages == False:
+    if not channel.overwrites_for(ctx.message.author).manage_messages == False:
+        if channel.overwrites_for(ctx.message.author).manage_messages == None:
+            if not ctx.message.author.server_permissions.manage_messages == True:
+                return
+            else:          
+                pass
+        else:
+            pass
+    else:
+        return
+    
+    #if channel.overwrites_for(roleks).read_messages == True:
+    #    await client.say("rebekumkum")    
         if ctx.message.author.id == (ownerid):
             pass
         else:        
