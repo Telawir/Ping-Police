@@ -307,19 +307,7 @@ async def purge(ctx, number : int = 34871):
     if  not can_sendmessages:
         return 
     
-    if not channel.overwrites_for(ctx.message.author).manage_messages == False:
-        if channel.overwrites_for(ctx.message.author).manage_messages == None:
-            if not ctx.message.author.server_permissions.manage_messages == True:
-                return
-            else:          
-                pass
-        else:
-            pass
-    else:
-        return
-    
-    #if channel.overwrites_for(roleks).read_messages == True:
-    #    await client.say("rebekumkum")    
+    if ctx.message.author.server_permissions.manage_messages == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
@@ -329,10 +317,10 @@ async def purge(ctx, number : int = 34871):
                 await client.delete_message(borg)
             except:
                 return
-            return
-            
+            return   
+    
     if  not can_deletemessages:
-        perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will **NOT** be deleted automatically. --")
         await asyncio.sleep(10)
         try: 
             await client.delete_message(perm)
@@ -447,14 +435,28 @@ async def lockdown(ctx):
     roleks = server.default_role
     overwrite = discord.PermissionOverwrite()
     
-    if ctx.message.author.server_permissions.manage_channels == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(korg)
-            return
+    if ctx.message.author.id == (ownerid):
+        pass
+    else:
+        if not channel.overwrites_for(ctx.message.author).manage_messages == False:
+            if channel.overwrites_for(ctx.message.author).manage_messages == None:
+                if not ctx.message.author.server_permissions.manage_messages == True:
+                    return
+                else:          
+                    pass
+            else:
+                pass
+        else:
+            return    
+    
+    #if ctx.message.author.server_permissions.manage_channels == False:
+     #   if ctx.message.author.id == (ownerid):
+     #       pass
+      #  else:        
+       #     korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        #    await asyncio.sleep(10)
+         #   await client.delete_message(korg)
+          #  return
         
     overwrite = channel.overwrites_for(roleks)
     overwrite.send_messages = False
