@@ -439,14 +439,26 @@ async def lockdown(ctx):
         pass
     else:
         if channel.overwrites_for(ctx.message.author).manage_messages == False:
+            bork = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            try:
+                await client.delete_message(bork)
+            except:
+                return
             return
         if channel.overwrites_for(ctx.message.author).manage_messages == None:
             if ctx.message.author.server_permissions.manage_messages == True:
                 pass
             else:
+                korg = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                try:
+                    await client.delete_message(korg)
+                except:
+                    return
                 return
         else:
-            return
+            pass
          
     
     #if ctx.message.author.server_permissions.manage_channels == False:
