@@ -35,20 +35,22 @@ async def help(ctx):
     g3 = str("**userinfo [user]**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
 #Moderation commands
-    t1 = str("**mute [user] <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
-    t2 = str("**unmute [user]**                 :: Unmutes a member:")
+    t1 = str("**mute @user <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
+    t2 = str("**unmute @user**                 :: Unmutes a member:")
     t3 = str("**purge [amount]**               :: Deletes 2-100 messages from the channel")
     t4 = str("**lockdown**                          :: Locks the channel down.")
-    t5 = str("**unlock**                            :: Unlocks the channel.")    
-    t6 = str("**kick [user]**                        :: Kicks a member")
-    t7 = str("**ban [user] <reason>**      :: Bans a member")
-    t8 = str("**soft [user] <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
+    tt4 = str("**slock**                            :: Locks all the channels down.")   
+    t5 = str("**unlock**                            :: Unlocks the channel.")
+    t6 = str("**warn @user [reason]**               :: Warns a member.")
+    t7 = str("**kick @user**                        :: Kicks a member")
+    t8 = str("**ban @user <reason>**      :: Bans a member")
+    t9 = str("**soft @user <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
 
 
     got = str(pref0)     
     mwot = str(m1 + '\n' + m2 + '\n' + m3 + '\n' + m4) 
     gwot = str(g1 + '\n' + g2 + '\n' + g3 + '\n' + g4)
-    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + t5 + '\n' + t6 + '\n' + t7 + '\n' + t8)
+    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + tt4 + '\n' + t5 + '\n' + t6 + '\n' + t7 + '\n' + t8 + '\n' + t9)
     
     join = discord.Embed(title = 'All the available bot commands', description = 'Glop Blop v1.0', colour = 0x0085ff);
     join.add_field(name = '> Prefix:', value = 'The current bot prefix is **' + str(pref0) + '**');
@@ -428,10 +430,10 @@ async def purge(ctx, number : int = 34871):
 #t4
 @client.command(pass_context = True)
 async def lockdown(ctx):
+    channel = ctx.message.channel
     server = ctx.message.server
     roleks = server.default_role
-    channel = ctx.message.channel
-    can_deletemessages = channel.permissions_for(server.me).manage_messages
+    overwrite = discord.PermissionOverwrite()
     
     if ctx.message.author.server_permissions.manage_channels == False:
         if ctx.message.author.id == (ownerid):
@@ -440,255 +442,76 @@ async def lockdown(ctx):
             korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
-            return        
-    if not can_deletemessages:
-        wong = await client.say(ctx.message.author.mention + " I don't have permission to lock this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(wong)
-        return  
+            return
         
-    overwrite = discord.PermissionOverwrite()
+    overwrite = channel.overwrites_for(roleks)
     overwrite.send_messages = False
     
     try:
         await client.edit_channel_permissions(channel, roleks, overwrite)
-    except:
-        await client.say("I don't have permission to edit channels.")
+    except Exception as e:
+        await client.say("```" + str(e) + "```")
         return
-    await client.say("The channel has been locked.")    
+    await client.say("The channel has been locked.")  
 
-#t5
+#tt4
 @client.command(pass_context = True)
-async def unlock(ctx):
-    
+async def slock(ctx):
+    channel = ctx.message.channel
     server = ctx.message.server
     roleks = server.default_role
-    channel = ctx.message.channel    
-    can_deletemessages = channel.permissions_for(server.me).manage_messages
-
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = False
+    role = discord.utils.get(server.roles,name="everyone")
+    
     if ctx.message.author.server_permissions.manage_channels == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            burg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(burg)
+            await client.delete_message(korg)
             return
-    if not can_deletemessages:
-        wong = await client.say(ctx.message.author.mention + " I don't have permission to unlock this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(wong)
-        return
+    pass
+
+    overwrite = server.default_role.permissions
+    overwrite.send_messages = False
     
+    try:
+        await client.edit_role(server, roleks, overwrites = overwrite)
+    except Exception as e:
+        await client.say("```" + str(e) + "```")
+        return
+    await client.say("All of the channels have been locked.")   
+    
+#t5
+@client.command(pass_context = True)
+async def unlock(ctx):
+    channel = ctx.message.channel
+    server = ctx.message.server
+    roleks = server.default_role
     overwrite = discord.PermissionOverwrite()
+    
+    if ctx.message.author.server_permissions.manage_channels == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(korg)
+            return
+        
+    overwrite = channel.overwrites_for(roleks)
     overwrite.send_messages = None
     
     try:
         await client.edit_channel_permissions(channel, roleks, overwrite)
-    except:
-        await client.say("I don't have permission to edit channels.")
-        return
-    await client.say("The channel has been unlocked.")        
-    
-
-#t6 - Kicks a Member From The Server
-
-@client.command(pass_context = True)
-async def kick(ctx, *, member : discord.Member=None):
-    '''Kicks A User From The Server'''
-    
-    server = ctx.message.server  
-    channel = ctx.message.channel
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-    can_kick = channel.permissions_for(server.me).kick_members
-
-
-    if ctx.message.author.server_permissions.kick_members == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(perm)
-            return
-    
-    if not can_kick:
-        wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(wong)
-        return
-    
-    if not member:
-        loi = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(loi)
-        return
-    
-    pass
-
-    try:
-        await client.kick(member)
     except Exception as e:
-        if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(lol)
-            return
- 
-    embed = discord.Embed(description = "**%s** has been kicked."%member.name, color = 0xF00000)
-    embed.set_footer(text='Glop Blop v1.0')
-    try:
-        await client.say(embed = embed)
-    except:
-        await client.say("**%s** has been kicked."%member.name)   
-    
-#t7 - BAN DZIALA #
-
-@client.command(pass_context = True)
-async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
-    """Bans specified member from the server."""
-    
-    server = ctx.message.server
-    channel = ctx.message.channel
-    can_ban = channel.permissions_for(server.me).ban_members
-  
-    if ctx.message.author.server_permissions.ban_members == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:
-            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(missed)
-            return
-    
-    if not can_ban:
-        wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(wong)
+        await client.say("```" + str(e) + "```")
         return
-    
-    if member == None:
-        spec = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(spec)
-        return
+    await client.say("'Send messages' permission for server default role for this channel has been changed to 'None'.")   
 
-
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-    member_roles = [r.name.lower() for r in member.roles]
-
-
-    if member.id == ctx.message.author.id:
-        self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(self)
-        return   
-    pass
-               
-    try:
-        await client.ban(member)
-    except Exception as e:
-        if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention +  " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(lol)
-            return
-    channel = ctx.message.channel
-    time = str(server.created_at); time = time.split(' '); time= time[0];
-
-    join = discord.Embed(title = ":regional_indicator_b: :regional_indicator_a: :regional_indicator_n:", colour = 0xF00000);
-    join.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
-    join.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
-    join.add_field(name = 'REASON', value = str((reason)));
-    join.set_footer(text = 'Glop Blop v1.0');
-        
-    ujoin = discord.Embed(title = ":regional_indicator_b: :regional_indicator_a: :regional_indicator_n:", colour = 0xF00000);
-    ujoin.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
-    ujoin.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
-    ujoin.set_footer(text = 'Glop Blop v1.0');
-
-
-    if reason == 1:
-        try:
-            await client.say(embed = ujoin);
-        except:
-            await client.say(str(member) + " has been banned.")
-    else:
-        try:
-            await client.say(embed = join);
-        except:
-            await client.say(str(member) + " has been banned. Reason:" + str(reason))
-    return
-
-#t8
-
-@client.command(pass_context=True)
-async def soft(ctx, user: discord.Member = None, *, reason: str = None):
-    """Kicks the user, deleting 1 day worth of messages."""
-    server = ctx.message.server
-    channel = ctx.message.channel
-    can_ban = channel.permissions_for(server.me).ban_members
-    author = ctx.message.author
-
-    if ctx.message.author.server_permissions.ban_members == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(missed)
-            return
-
-    if not can_ban:
-        wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(wong)
-        return
-        
-    if user == None:
-        spec = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(spec)
-        return
-
-    if user == ctx.message.author:
-        self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(self)
-        return
-    
-    
-    try:
-        invite = await client.create_invite(ctx.message.channel,max_uses=1,xkcd=True)        
-        invite = invite.url
-
-    except:
-        invite = ""
-
-    try:
-        try:
-            msg = await client.send_message(user, " You have been softbanned. Now, you can join the server again:" + invite)
-        except:
-            pass
-        
-        await client.ban(user, 1)
-        await client.unban(server, user)
-        if reason == None:
-            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**.")
-        else:
-            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**, reason: " + str(reason))
-    except discord.errors.Forbidden:
-        clog = await client.say(ctx.message.author.mention + " I can't ban this member." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(clog)
-    except Exception as e:
-        print(e)
-        
-
-    
- ###############################----------------------########################### 
-                                ##~~~~In DEVELOPMENT ~~~~####
-    
+#t6
 @client.command(pass_context = True)
 async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     
@@ -781,7 +604,207 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.delete_message(norole1)
             return
         warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your first warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        return    
+    
+#t7 - Kicks a Member From The Server
+
+@client.command(pass_context = True)
+async def kick(ctx, *, member : discord.Member=None):
+    '''Kicks A User From The Server'''
+    
+    server = ctx.message.server  
+    channel = ctx.message.channel
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    can_kick = channel.permissions_for(server.me).kick_members
+
+
+    if ctx.message.author.server_permissions.kick_members == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(perm)
+            return
+    
+    if not can_kick:
+        wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(wong)
         return
+    
+    if not member:
+        loi = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(loi)
+        return
+    
+    pass
+
+    try:
+        await client.kick(member)
+    except Exception as e:
+        if 'Privilege is too low' in str(e):
+            lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(lol)
+            return
+ 
+    embed = discord.Embed(description = "**%s** has been kicked."%member.name, color = 0xF00000)
+    embed.set_footer(text='Glop Blop v1.0')
+    try:
+        await client.say(embed = embed)
+    except:
+        await client.say("**%s** has been kicked."%member.name)   
+    
+#t8 - BAN DZIALA #
+
+@client.command(pass_context = True)
+async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
+    """Bans specified member from the server."""
+    
+    server = ctx.message.server
+    channel = ctx.message.channel
+    can_ban = channel.permissions_for(server.me).ban_members
+  
+    if ctx.message.author.server_permissions.ban_members == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:
+            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(missed)
+            return
+    
+    if not can_ban:
+        wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(wong)
+        return
+    
+    if member == None:
+        spec = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(spec)
+        return
+
+
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    member_roles = [r.name.lower() for r in member.roles]
+
+
+    if member.id == ctx.message.author.id:
+        self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(self)
+        return   
+    pass
+               
+    try:
+        await client.ban(member)
+    except Exception as e:
+        if 'Privilege is too low' in str(e):
+            lol = await client.say(ctx.message.author.mention +  " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(lol)
+            return
+    channel = ctx.message.channel
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+
+    join = discord.Embed(title = ":regional_indicator_b: :regional_indicator_a: :regional_indicator_n:", colour = 0xF00000);
+    join.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
+    join.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
+    join.add_field(name = 'REASON', value = str((reason)));
+    join.set_footer(text = 'Glop Blop v1.0');
+        
+    ujoin = discord.Embed(title = ":regional_indicator_b: :regional_indicator_a: :regional_indicator_n:", colour = 0xF00000);
+    ujoin.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
+    ujoin.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
+    ujoin.set_footer(text = 'Glop Blop v1.0');
+
+
+    if reason == 1:
+        try:
+            await client.say(embed = ujoin);
+        except:
+            await client.say(str(member) + " has been banned.")
+    else:
+        try:
+            await client.say(embed = join);
+        except:
+            await client.say(str(member) + " has been banned. Reason:" + str(reason))
+    return
+
+#t9
+
+@client.command(pass_context=True)
+async def soft(ctx, user: discord.Member = None, *, reason: str = None):
+    """Kicks the user, deleting 1 day worth of messages."""
+    server = ctx.message.server
+    channel = ctx.message.channel
+    can_ban = channel.permissions_for(server.me).ban_members
+    author = ctx.message.author
+
+    if ctx.message.author.server_permissions.ban_members == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(missed)
+            return
+
+    if not can_ban:
+        wong = await client.say(ctx.message.author.mention + " I don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(wong)
+        return
+        
+    if user == None:
+        spec = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(spec)
+        return
+
+    if user == ctx.message.author:
+        self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(self)
+        return
+    
+    
+    try:
+        invite = await client.create_invite(ctx.message.channel,max_uses=1,xkcd=True)        
+        invite = invite.url
+
+    except:
+        invite = ""
+
+    try:
+        try:
+            msg = await client.send_message(user, " You have been softbanned. Now, you can join the server again:" + invite)
+        except:
+            pass
+        
+        await client.ban(user, 1)
+        await client.unban(server, user)
+        if reason == None:
+            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**.")
+        else:
+            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**, reason: " + str(reason))
+    except discord.errors.Forbidden:
+        clog = await client.say(ctx.message.author.mention + " I can't ban this member." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(clog)
+    except Exception as e:
+        print(e)
+        
+
+    
+ ###############################----------------------########################### 
+                                ##~~~~In DEVELOPMENT ~~~~####
+    
+
     
 @client.command(pass_context=True, hidden = True)
 async def report(ctx, user: discord.Member, *, reason):
