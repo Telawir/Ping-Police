@@ -2,6 +2,12 @@ To-do list:
 
 Dodać wyciszenie czasowe
 Wprowadzić system ostrzeżeń 
-Zmienić system blokad kanałów
+
 
 Done:
+Zmienienie systemu blokad kanałów (01.04.2018)
+  - Zmiana w komendach lockdown, unlock i slock - bot nadpisuje wyłącznie uprawnienie pisania wiadomości, nie zmienia   
+    pozostałcyh uprawnień roli @everyone dla danego kanału lub serwera.
+    
+Wprowadzenie pół-automatycznego systemu ostrzeżeń (01.04.2018)
+  - Jeśli w liście roli na serwerze znajdują się role na sssss
