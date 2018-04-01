@@ -32,7 +32,7 @@ async def help(ctx):
 #Server commands    
     g1 = str("**serverinvite**         :: Gives you an invitation link to this server")
     g2 = str("**serverbans**                    :: Gets a list of banned users")    
-    g3 = str("**userinfo [user]**   :: Displays Info About The User // __in development__ //")
+    g3 = str("**userinfo @user**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
 #Moderation commands
     t1 = str("**mute @user <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
