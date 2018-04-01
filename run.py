@@ -438,16 +438,16 @@ async def lockdown(ctx):
     if ctx.message.author.id == (ownerid):
         pass
     else:
-        if not channel.overwrites_for(ctx.message.author).manage_messages == False:
-            if channel.overwrites_for(ctx.message.author).manage_messages == None:
-                if not ctx.message.author.server_permissions.manage_messages == True:
-                    return
-                else:          
-                    pass
-            else:
+        if channel.overwrites_for(ctx.message.author).manage_messages == False:
+            return
+        if channel.overwrites_for(ctx.message.author).manage_messages == None:
+            if ctx.message.author.server_permissions.manage_messages == True:
                 pass
+            else:
+                return
         else:
-            return    
+            return
+         
     
     #if ctx.message.author.server_permissions.manage_channels == False:
      #   if ctx.message.author.id == (ownerid):
