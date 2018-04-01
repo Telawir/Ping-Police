@@ -743,7 +743,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         try:
             await client.add_roles(member, blindedrole)
         except:
-            noroleblinded = await client.say(ctx.message.author.mention + ", I couldn't find `Blinded` role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            noroleblinded = await client.say(ctx.message.author.mention + ", I couldn't find `Blinded` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
             await asyncio.sleep(30)
             await client.delete_message(noroleblinded)
             return
@@ -754,7 +754,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         try:
             await client.add_roles(member, warn3role)
         except:
-            norole3 = await client.say(ctx.message.author.mention + ", I couldn't find `Third warning` role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            norole3 = await client.say(ctx.message.author.mention + ", I couldn't find `Third warning` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
             await asyncio.sleep(30)
             await client.delete_message(norole3)
             return
@@ -765,7 +765,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         try:
             await client.add_roles(member, warn2role)
         except:
-            norole2 = await client.say(ctx.message.author.mention + ", I couldn't find `Second warning` role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            norole2 = await client.say(ctx.message.author.mention + ", I couldn't find `Second warning` role or it's the higher rank than my highest role" + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
             await asyncio.sleep(30)
             await client.delete_message(norole2)
             return
@@ -776,7 +776,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         try:
             await client.add_roles(member, warn1role)
         except:
-            norole1 = await client.say(ctx.message.author.mention + ", I couldn't find `First warning` role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            norole1 = await client.say(ctx.message.author.mention + ", I couldn't find `First warning` role or it's the higher rank than my highest role" + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
             await asyncio.sleep(30)
             await client.delete_message(norole1)
             return
