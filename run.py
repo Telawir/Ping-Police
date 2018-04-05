@@ -657,7 +657,8 @@ async def kick(ctx, *, member : discord.Member=None):
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
-
+        
+#    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
     belo = int(server.id)
     user_roles = [r.name.lower() for r in ctx.message.author.roles]    
     if belo == 359426518730145802: #checks if the command runs on my private
@@ -668,13 +669,13 @@ async def kick(ctx, *, member : discord.Member=None):
                 await client.delete_message(lol)
                 return
         if "Moderator" in member_roles:
-            if not any(r.name.lower() for r in ["Senior Moderator", "Admin"]):
+            if not any(word in user_roles for word in["Senior Moderator", "Admin"]):
                 lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
                 return
         if "Trial Moderator" in member_roles:
-            if not any(r.name.lower() for r in ["Moderator", "Senior Moderator", "Admin"]):
+            if not any(word in user_roles for word in["Moderator", "Senior Moderator", "Admin"]):
                 lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
