@@ -669,13 +669,13 @@ async def kick(ctx, *, member : discord.Member=None):
                 await client.delete_message(lol)
                 return
         if "Moderator" in member_roles:
-            if not any(word in user_roles for word in["Senior Moderator", "Admin"]):
+            if not any(r in user_roles for r in["Senior Moderator", "Admin"]):
                 lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
                 return
         if "Trial Moderator" in member_roles:
-            if not any(word in user_roles for word in["Moderator", "Senior Moderator", "Admin"]):
+            if not any(r in user_roles for r in["Moderator", "Senior Moderator", "Admin"]):
                 lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
