@@ -656,30 +656,7 @@ async def kick(ctx, *, member : discord.Member=None):
             perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(perm)
-            return
-        
-#    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
-    belo = int(server.id)
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]    
-    if belo == 359426518730145802: #checks if the command runs on my private
-        if "Senior Moderator" in member_roles:
-            if not "Admin" in user_roles:
-                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-                await asyncio.sleep(10)
-                await client.delete_message(lol)
-                return
-        if "Moderator" in member_roles:
-            if not any(r in user_roles for r in["Senior Moderator", "Admin"]):
-                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-                await asyncio.sleep(10)
-                await client.delete_message(lol)
-                return
-        if "Trial Moderator" in member_roles:
-            if not any(r in user_roles for r in["Moderator", "Senior Moderator", "Admin"]):
-                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-                await asyncio.sleep(10)
-                await client.delete_message(lol)
-                return
+            return 
 
     if not can_kick:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
@@ -693,6 +670,43 @@ async def kick(ctx, *, member : discord.Member=None):
         await client.delete_message(loi)
         return
     
+#    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
+    belo = int(server.id)
+    member_roles = [r.name.lower() for r in member.roles]    
+    if belo == 359426518730145802: #checks if the command runs on my private
+        if "admin" in member_roles:
+            if not ctx.message.author.id == (ownerid):
+                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                await client.delete_message(lol)
+                return
+        if "senior moderator" in member_roles:
+            if not "admin" in user_roles:
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "moderator" in member_roles:
+            if not any(r in user_roles for r in["senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "trial moderator" in member_roles:
+            if not any(r in user_roles for r in["moderator", "senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return    
     pass
 
     try:
@@ -742,7 +756,43 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
         await client.delete_message(spec)
         return
 
-
+    #    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
+    belo = int(server.id)
+    member_roles = [r.name.lower() for r in member.roles]    
+    if belo == 359426518730145802: #checks if the command runs on my private
+        if "admin" in member_roles:
+            if not ctx.message.author.id == (ownerid):
+                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                await client.delete_message(lol)
+                return
+        if "senior moderator" in member_roles:
+            if not "admin" in user_roles:
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "moderator" in member_roles:
+            if not any(r in user_roles for r in["senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "trial moderator" in member_roles:
+            if not any(r in user_roles for r in["moderator", "senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
     user_roles = [r.name.lower() for r in ctx.message.author.roles]
     member_roles = [r.name.lower() for r in member.roles]
 
@@ -826,7 +876,43 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         await client.delete_message(self)
         return
     
-    
+   #    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
+    belo = int(server.id)
+    member_roles = [r.name.lower() for r in member.roles]    
+    if belo == 359426518730145802: #checks if the command runs on my private
+        if "admin" in member_roles:
+            if not ctx.message.author.id == (ownerid):
+                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                await client.delete_message(lol)
+                return
+        if "senior moderator" in member_roles:
+            if not "admin" in user_roles:
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "moderator" in member_roles:
+            if not any(r in user_roles for r in["senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return
+        if "trial moderator" in member_roles:
+            if not any(r in user_roles for r in["moderator", "senior moderator", "admin"]):
+                if ctx.message.author.id == (ownerid):
+                    pass
+                else: 
+                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    await client.delete_message(lol)
+                    return 
     try:
         invite = await client.create_invite(ctx.message.channel,max_uses=1,xkcd=True)        
         invite = invite.url
