@@ -763,7 +763,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
     if belo == 359426518730145802: #checks if the command runs on my private
         if "admin" in member_roles:
             if not ctx.message.author.id == (ownerid):
-                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
                 return
@@ -772,7 +772,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
@@ -781,7 +781,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
@@ -790,7 +790,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
@@ -874,13 +874,12 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         await client.delete_message(self)
         return
     
-   #    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
     belo = int(server.id)
     member_roles = [r.name.lower() for r in member.roles]    
     if belo == 359426518730145802: #checks if the command runs on my private
         if "admin" in member_roles:
             if not ctx.message.author.id == (ownerid):
-                lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(lol)
                 return
@@ -889,7 +888,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
@@ -898,7 +897,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
@@ -907,7 +906,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
                 if ctx.message.author.id == (ownerid):
                     pass
                 else: 
-                    lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    lol = await client.say(ctx.message.author.mention + " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return 
@@ -927,9 +926,9 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         await client.ban(user, 1)
         await client.unban(server, user)
         if reason == None:
-            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**.")
+            await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**.")
         else:
-            await client.say("**" + str(user) + "** has been banned by **" + str(author) + "**, reason: " + str(reason))
+            await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**, reason: " + str(reason))
     except discord.errors.Forbidden:
         clog = await client.say(ctx.message.author.mention + " I can't ban this member." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
