@@ -758,7 +758,8 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
 
     #    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
     belo = int(server.id)
-    member_roles = [r.name.lower() for r in member.roles]    
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    member_roles = [r.name.lower() for r in member.roles]
     if belo == 359426518730145802: #checks if the command runs on my private
         if "admin" in member_roles:
             if not ctx.message.author.id == (ownerid):
@@ -793,10 +794,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
                     return
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-    member_roles = [r.name.lower() for r in member.roles]
-
-
+                
     if member.id == ctx.message.author.id:
         self = await client.say(ctx.message.author.mention + ", you cannot ban yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
