@@ -645,6 +645,7 @@ async def kick(ctx, *, member : discord.Member=None):
     server = ctx.message.server  
     channel = ctx.message.channel
     user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    member_roles = [r.name.lower() for r in member.roles]
     can_kick = channel.permissions_for(server.me).kick_members
 
 
@@ -656,7 +657,18 @@ async def kick(ctx, *, member : discord.Member=None):
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
-    
+
+    belo = int(server.id)
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    if belo == 359426518730145802: #checks if the command runs on my private 
+        await client.say("ugabanga!")  
+        if "Senior Moderator" in member_roles:
+            if not "Admin" in user_roles:
+                return
+        if "Moderator" in member_roles:
+            if not any(r.name.lower() for r in ["Moderator", "Senior Moderator", "Admin"]):
+                return
+
     if not can_kick:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
