@@ -875,7 +875,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         return
     
     belo = int(server.id)
-    member_roles = [r.name.lower() for r in member.roles]    
+    member_roles = [r.name.lower() for r in author.roles]    
     if belo == 359426518730145802: #checks if the command runs on my private
         if "admin" in member_roles:
             if not ctx.message.author.id == (ownerid):
