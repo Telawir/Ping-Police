@@ -917,29 +917,27 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     except:
         invite = ""
 
+    
     try:
-        try:
-            msg = await client.send_message(user, " You have been softbanned. Now, you can join the server again:" + invite)
-        except:
-            pass
-        try:
-            await client.ban(user, 1)
-        except: 
-            clog = await client.say(ctx.message.author.mention + " I can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(clog)
-            return
-        await client.unban(server, user)
-        if reason == None:
-            await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**.")
-        else:
-            await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**, reason: " + str(reason))
-    except discord.errors.Forbidden:
-        clog = await client.say(ctx.message.author.mention + " I can't ban this member." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        msg = await client.send_message(user, " You have been softbanned. Now, you can join the server again:" + invite)
+    except:
+        pass
+    try:
+        await client.ban(user, 1)
+    except: 
+        clog = await client.say(ctx.message.author.mention + " I can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(clog)
+        return
+    await client.unban(server, user)
+    
+    if reason == None:
+        await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**.")
+    else:
+        await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**, reason: " + str(reason))
+    
     except Exception as e:
-        print(e)
+        await clients.say(e + "You should never get this error. Please contact Superplus#2392 if you see this message.)
         
 
     
