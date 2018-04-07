@@ -713,7 +713,7 @@ async def kick(ctx, *, member : discord.Member=None):
         await client.kick(member)
     except Exception as e:
         if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            lol = await client.say(ctx.message.author.mention + "I can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(lol)
             return
@@ -806,7 +806,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
         await client.ban(member)
     except Exception as e:
         if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention +  " You can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            lol = await client.say(ctx.message.author.mention +  "I can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(lol)
             return
@@ -922,8 +922,13 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
             msg = await client.send_message(user, " You have been softbanned. Now, you can join the server again:" + invite)
         except:
             pass
-        
-        await client.ban(user, 1)
+        try:
+            await client.ban(user, 1)
+        except: 
+            clog = await client.say(ctx.message.author.mention + " I can't ban this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(clog)
+            return
         await client.unban(server, user)
         if reason == None:
             await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**.")
