@@ -929,6 +929,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         await asyncio.sleep(10)
         await client.delete_message(clog)
         return
+    
     await client.unban(server, user)
     
     if reason == None:
@@ -936,8 +937,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     else:
         await client.say("**" + str(user) + "** has been softbanned by **" + str(author) + "**, reason: " + str(reason))
     
-    except Exception as e:
-        await clients.say(e + "You should never get this error. Please contact Superplus#2392 if you see this message.)
+
         
 
     
