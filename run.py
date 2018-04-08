@@ -200,7 +200,7 @@ async def roles(ctx):
     
     embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
     embed.add_field(name = ' ', value = "```" + (roles) + "```")
-    embed.set_thumbnail('test');
+    ujoin.set_footer(text ='test');
     try:
         await client.say(embed = embed);
     except:
