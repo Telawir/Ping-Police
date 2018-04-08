@@ -198,7 +198,7 @@ async def roles(ctx):
     roles = ', '.join(roles);
     channels = len(server.channels);
     time = str(server.created_at); time = time.split(' '); time= time[0];
-    date = datetime.datetime.ctx().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")        
+    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")     
     
     embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
     embed.add_field(name = ' ', value = "```" + (roles) + "```")
@@ -1030,7 +1030,7 @@ async def add(x: int, y: int = 1):
 
 @client.command(pass_context = True)
 async def now(ctx):
-    date = datetime.datetime.ctx().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")
+    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     embed = discord.Embed(color = embed_color)
     embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
     await client.say(embed=embed)
