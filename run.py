@@ -3,8 +3,8 @@ import asyncio
 import config
 import time
 import os
-#import datetime
-#import timezone
+import datetime
+import timezone
 
 from config import link, prefix, ownerid
 from discord.ext.commands import Bot
@@ -199,7 +199,7 @@ async def roles(ctx):
     roles = ', '.join(roles);
     channels = len(server.channels);
     time = str(server.created_at); time = time.split(' '); time= time[0];
-    #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")  
+    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     
     embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
     embed.add_field(name = ' ', value = "```" + (roles) + "```")
@@ -1031,8 +1031,9 @@ async def add(x: int, y: int = 1):
 
 @client.command(pass_context = True)
 async def now(ctx):
+    colour = discord.Colour.magenta()
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
-    embed = discord.Embed(color = embed_color)
+    embed = discord.Embed(color = colour)
     embed.add_field(name="Bot's System Date & Time", value=date, inline=False)
     await client.say(embed=embed)
 #must import os
