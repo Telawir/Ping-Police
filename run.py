@@ -34,6 +34,7 @@ async def help(ctx):
     g2 = str("**serverbans**                    :: Gets a list of banned users")    
     g3 = str("**userinfo @user**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
+    g5 = str("**roles**               :: Displays a list of all of the server roles")
 #Moderation commands
     t1 = str("**mute @user <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
     t2 = str("**unmute @user**                 :: Unmutes a member:")
@@ -188,7 +189,28 @@ async def serverinfo(ctx):
             await asyncio.sleep(10)
             await client.delete_message(miss)
         return
-
+#g5
+@client.command(pass_context=True)
+async def roles(ctx):
+    server = ctx.message.server
+    roles = [x.name for x in server.role_hierarchy]
+    role_length = len(roles)
+    roles = ', '.join(roles);
+    channels = len(server.channels);
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+    date = datetime.datetime.ctx().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M %p")        
+    
+    embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
+    embed.add_field(name = ' ', value = "```" + (roles) + "```")
+    embed.set_thumbnail(str(date));
+    try:
+        await client.say(embed = embed);
+    except:
+        miss = await client.say(ctx.message.author.mention + " Embed links permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(miss)
+        return    
+    
 #t1 - Mutes a Member From The server
 
 @client.command(pass_context = True)
