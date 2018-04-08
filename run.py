@@ -198,12 +198,13 @@ async def roles(ctx):
     roles = ', '.join(roles);
     channels = len(server.channels);
     
-    embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
-    embed.add_field(name = ' ', value = "```" + (roles) + "```")
-    embed.set_footer(text ='test');
+    embed = discord.Embed(description= "```" + (roles) + "```",title = 'Server roles', colour = 0x0085ff);        
+
     try:
         await client.say(embed = embed);
-    except:
+    except Exception as e:
+        await client.say(e)
+        print(e)
         miss = await client.say(ctx.message.author.mention + " Embed links permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(miss)
