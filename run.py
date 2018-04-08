@@ -3,11 +3,10 @@ import asyncio
 import config
 import time
 import os
-import datetime
-import timezone
 
 from config import link, prefix, ownerid
 from discord.ext.commands import Bot
+from datetime import datetime, timezone
 
 client = Bot(prefix)
 client.remove_command('help')
@@ -198,8 +197,6 @@ async def roles(ctx):
     role_length = len(roles)
     roles = ', '.join(roles);
     channels = len(server.channels);
-    time = str(server.created_at); time = time.split(' '); time= time[0];
-    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     
     embed = discord.Embed(description= str(server),title = 'Server roles', colour = 0x0085ff);        
     embed.add_field(name = ' ', value = "```" + (roles) + "```")
