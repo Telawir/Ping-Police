@@ -328,7 +328,7 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
 #t2 - Unmutes a member
 
 @client.command(pass_context = True)
-async def unmute(ctx, *, member : discord.Member):
+async def unmute(ctx, *, member : discord.Member = None):
     '''Unmutes The Muted Memeber'''
     
     member_roles = [r.name.lower() for r in member.roles]
