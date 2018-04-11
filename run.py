@@ -329,47 +329,51 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
 
 @client.command(pass_context = True)
 async def unmute(ctx, *, member : discord.Member = None):
+    try:
     '''Unmutes The Muted Memeber'''
     
-    member_roles = [r.name.lower() for r in member.roles]
-    user_roles = [r.name.lower() for r in ctx.message.author.roles] 
-    server = ctx.message.server
-    channel = ctx.message.channel
-    can_manage_roles = channel.permissions_for(server.me).manage_roles
-    role = discord.utils.get(server.roles,name="Mute")  
+        member_roles = [r.name.lower() for r in member.roles]
+        user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+        server = ctx.message.server
+        channel = ctx.message.channel
+        can_manage_roles = channel.permissions_for(server.me).manage_roles
+        role = discord.utils.get(server.roles,name="Mute")  
 
-    if ctx.message.author.server_permissions.administrator == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:
-            perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        if ctx.message.author.server_permissions.administrator == False:
+            if ctx.message.author.id == (ownerid):
+                pass
+            else:
+                perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                await client.delete_message(perm)
+                return
+        
+        if member == None:
+            ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(perm)
+            await client.delete_message(ment)
             return
-        
-    if member == None:
-        ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(ment)
-        return
     
-    if can_manage_roles == False:
-        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(botperm)
-        return
+        if can_manage_roles == False:
+            botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(botperm)
+            return
        
-    if "mute" not in member_roles:
-        pedro = await client.say(ctx.message.author.mention + " I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(pedro)        
-        return 
+        if "mute" not in member_roles:
+            pedro = await client.say(ctx.message.author.mention + " I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(pedro)        
+            return 
         
-    pass
+        pass
 
-    await client.remove_roles(member, role)
-    await client.say(":loud_sound: **%s** is now Unmuted!"%member.mention)
-
+        await client.remove_roles(member, role)
+        await client.say(":loud_sound: **%s** is now Unmuted!"%member.mention)
+        
+    except Exception as e:
+        print (e)
+        await client.say(e)
 
 #t3 - Clears The Chat
 
