@@ -383,7 +383,7 @@ async def purge(ctx, number : int = 34871):
             return   
     
     if  not can_deletemessages:
-        perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will **NOT** be deleted automatically. --")
+        perm = await client.say(ctx.message.author.mention + " Manage messages permission required." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         try: 
             await client.delete_message(perm)
