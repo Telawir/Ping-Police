@@ -36,16 +36,16 @@ async def help(ctx):
     g4 = str("**serverinfo**            :: Displays Info About The Server")
     g5 = str("**roles**               :: Displays a list of all of the server roles")
 #Moderation commands
-    t1 = str("**mute @user <reason>**   :: Mutes a member for 5 minutes (requires Mute role)")
+    t1 = str("**mute @user [lenght]**     :: Mutes a member for 5 minutes (requires Mute role)")
     t2 = str("**unmute @user**                 :: Unmutes a member:")
-    t3 = str("**purge [amount]**               :: Deletes 2-100 messages from the channel")
+    t3 = str("**purge [amount]**              :: Deletes 2-100 messages from the channel")
     t4 = str("**lockdown**                          :: Locks the channel down.")
-    tt4 = str("**slock**                            :: Locks all the channels down.")   
-    t5 = str("**unlock**                            :: Unlocks the channel.")
-    t6 = str("**warn @user [reason]**               :: Warns a member.")
-    t7 = str("**kick @user**                        :: Kicks a member")
-    t8 = str("**ban @user <reason>**      :: Bans a member")
-    t9 = str("**soft @user <reason>**     :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
+    tt4 = str("**slock**                                  :: Locks all the channels down.")   
+    t5 = str("**unlock**                               :: Unlocks the channel.")
+    t6 = str("**warn @user [reason]**    :: Warns a member.")
+    t7 = str("**kick @user**                       :: Kicks a member")
+    t8 = str("**ban @user <reason>**     :: Bans a member")
+    t9 = str("**soft @user <reason>**    :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
 
 
     got = str(pref0)     
@@ -213,15 +213,12 @@ async def roles(ctx):
 #t1 - Mutes a Member From The server
 
 @client.command(pass_context = True)
-
-async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
+async def mute(ctx, member : discord.Member = None, *, time : str = 0):
     
-    '''Mutes A Memeber'''
-
     server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Mute")
     channel = ctx.message.channel
     can_manage_roles = channel.permissions_for(server.me).manage_roles
+    role = discord.utils.get(server.roles,name="Mute")  
 
     if ctx.message.author.server_permissions.administrator == False:
         if ctx.message.author.id == (ownerid):
@@ -231,57 +228,104 @@ async def mute(ctx, member : discord.Member = None, *, reason : str = 1):
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
-    
-    if can_manage_roles == False:
-        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(botperm)
-        return     
-    
+        
     if member == None:
         ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(ment)
         return
+    
+    if can_manage_roles == False:
+        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(botperm)
+        return
+    
+    if not role:
+        await client.say("I can't find Mute role. I'll create it for you.")
+        roleks = server.default_role
+        overwrite = discord.PermissionOverwrite()
+        overwrite.send_messages = False
+        belo = str("Mute")
+        colour = discord.Colour.dark_grey()
+        try:
+            await client.create_role(server, name = belo, colour = colour, hoist = False, mentionable = False)
+        except:
+            await client.say("Manage Roles permission required.")
+        role = discord.utils.get(server.roles,name="Mute")
+        await client.move_role(server, role, position = 1)
+        await client.say("I created Mute role for you. Make sure this role has right position in role hierarchy and then try to mute the user again.")
+        return
+    
+    member_roles = [r.name.lower() for r in member.roles] 
+    if "mute" in member_roles:
+        pedro = await client.say(ctx.message.author.mention + " I can't mute this user, they are already muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(pedro)        
+        return
+    
+    if time == 0:
+        ment = await client.say(ctx.message.author.mention +  " No valid mute duration entered." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(ment)
+        return
+    
+    time = int(time)
+    await client.say(time)
+    if time > 10080 or time < 1:
+        ment = await client.say(ctx.message.author.mention +  "Please enter a mute duration in valid time format. Enter the time in minutes (1-10080)" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(ment)
+        return
+    time = str(time)
+
+
     pass
 
     await client.add_roles(member, role)
-    mutestart = await client.say(":mute: **%s** is now muted for 5 minutes! Wait for an unmute "%member.mention)
+    mutestart = await client.say(":mute: **%s** is now muted for "%member.mention + str(time) +" minutes! Wait for an unmute.")
     channel = ctx.message.channel
     
     join = discord.Embed(description="trutututut",title = "Wyciszenie", colour = 0xFF7A00);
     join.add_field(name = 'User', value = str(member.mention) + '\n' + str(member));
     join.add_field(name = 'Moderator', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
-    join.add_field(name = 'Length', value = str("300 seconds"));
-    join.add_field(name = 'Reason', value = str((reason)));
+    join.add_field(name = 'Length', value = str(str(time) + " minute(s)"));
+   #join.add_field(name = 'Reason', value = str((reason)));
     join.set_footer(text ='Glop Blop v1.0');
         
     ujoin = discord.Embed(description="trutututut",title = "Wyciszenie", colour = 0xFF7A00);
     ujoin.add_field(name = 'User', value = str(member.mention) + '\n' + str(member));
     ujoin.add_field(name = 'Moderator', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
-    ujoin.add_field(name = 'Lenght', value = str("300 seconds"));
+    ujoin.add_field(name = 'Lenght', value = str(str(time) + " minute(s)"));
     ujoin.set_footer(text ='Glop Blop v1.0');
 
-    if reason == 1:
+    if channel == channel:    #It used to be if reason == 1:
         try:
             await client.say(embed = ujoin);
         except:
             await client.say("Moderator: " + str(ctx.message.author))
             return
-    else:
-        try:
-            await client.say(embed = join);
-        except:
-            await client.say("Moderator: " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
-            return
-    
-    await asyncio.sleep(300)
+    #else:
+    #    try:
+    #        await client.say(embed = join);
+    #    except:
+    #        await client.say("Moderator: " + str(ctx.message.author) + ", reason: " + str(reason) + ".")
+    #        return
+        
+    time = int(60*int(time))
+    await client.say(str(time))
+    time = int(time)
+    await asyncio.sleep(time)
     role = discord.utils.get(server.roles,name="Mute")
     member_roles = [r.name.lower() for r in member.roles]
     if "mute" in member_roles:
         await client.remove_roles(member, role)
         mutestop = await client.say(":loud_sound: **%s** is now Unmuted!"%member.mention)   
     return
+
+
+
+
 
 #t2 - Unmutes a member
 
