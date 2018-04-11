@@ -286,14 +286,14 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
     mutestart = await client.say(":mute: **%s** is now muted for "%member.mention + str(time) +" minutes! Wait for an unmute.")
     channel = ctx.message.channel
     
-    join = discord.Embed(description="trutututut",title = "Wyciszenie", colour = 0xFF7A00);
+    join = discord.Embed(description="Info:",title = "Mute", colour = 0xFF7A00);
     join.add_field(name = 'User', value = str(member.mention) + '\n' + str(member));
     join.add_field(name = 'Moderator', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
     join.add_field(name = 'Length', value = str(str(time) + " minute(s)"));
    #join.add_field(name = 'Reason', value = str((reason)));
     join.set_footer(text ='Glop Blop v1.0');
         
-    ujoin = discord.Embed(description="trutututut",title = "Wyciszenie", colour = 0xFF7A00);
+    ujoin = discord.Embed(description="Info:",title = "Mute", colour = 0xFF7A00);
     ujoin.add_field(name = 'User', value = str(member.mention) + '\n' + str(member));
     ujoin.add_field(name = 'Moderator', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
     ujoin.add_field(name = 'Lenght', value = str(str(time) + " minute(s)"));
@@ -1081,3 +1081,4 @@ async def now(ctx):
 #must import os
 
 client.run(os.getenv('TOKEN')) 
+Mute
