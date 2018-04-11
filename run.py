@@ -271,7 +271,6 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
         return
     
     time = int(time)
-    await client.say(time)
     if time > 10080 or time < 1:
         ment = await client.say(ctx.message.author.mention +  "Please enter a mute duration in valid time format. Enter the time in minutes (1-10080)" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
@@ -313,7 +312,6 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
     #        return
         
     time = int(60*int(time))
-    await client.say(str(time))
     time = int(time)
     await asyncio.sleep(time)
     role = discord.utils.get(server.roles,name="Mute")
