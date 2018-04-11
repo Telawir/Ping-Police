@@ -331,7 +331,6 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
 async def unmute(ctx, *, member : discord.Member = None):
     try:
     
-        member_roles = [r.name.lower() for r in member.roles]
         user_roles = [r.name.lower() for r in ctx.message.author.roles] 
         server = ctx.message.server
         channel = ctx.message.channel
@@ -352,7 +351,8 @@ async def unmute(ctx, *, member : discord.Member = None):
             await asyncio.sleep(10)
             await client.delete_message(ment)
             return
-    
+        member_roles = [r.name.lower() for r in member.roles]
+        
         if can_manage_roles == False:
             botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
@@ -720,40 +720,38 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
 #t7 - Kicks a Member From The Server
 
 @client.command(pass_context = True)
-async def kick(ctx, *, member : discord.Member=None):
-    '''Kicks A User From The Server'''
+async def kick(ctx, member : discord.Member = None, *, reason : str = 1):
+    """Kicks specified member from the server."""
     
-    server = ctx.message.server  
+    server = ctx.message.server
     channel = ctx.message.channel
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-    member_roles = [p.name.lower() for p in member.roles]
     can_kick = channel.permissions_for(server.me).kick_members
-
-
+  
     if ctx.message.author.server_permissions.kick_members == False:
         if ctx.message.author.id == (ownerid):
             pass
-        else:        
-            perm = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        else:
+            missed = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(perm)
-            return 
-
+            await client.delete_message(missed)
+            return
+    
     if not can_kick:
         wong = await client.say(ctx.message.author.mention + " I don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
         await client.delete_message(wong)
         return
     
-    if not member:
-        loi = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+    if member == None:
+        spec = await client.say(ctx.message.author.mention + " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
-        await client.delete_message(loi)
+        await client.delete_message(spec)
         return
-    
-#    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
+
+    #    if any(word in message.content for word in["bitch", "dick", "porn", "fuck"]
     belo = int(server.id)
-    member_roles = [r.name.lower() for r in member.roles]    
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+    member_roles = [r.name.lower() for r in member.roles]
     if belo == 359426518730145802: #checks if the command runs on my private
         if "admin" in member_roles:
             if not ctx.message.author.id == (ownerid):
@@ -787,25 +785,50 @@ async def kick(ctx, *, member : discord.Member=None):
                     lol = await client.say(ctx.message.author.mention + " You can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     await client.delete_message(lol)
-                    return    
+                    return
+                
+    if member.id == ctx.message.author.id:
+        self = await client.say(ctx.message.author.mention + ", you cannot kick yourself." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(self)
+        return   
     pass
-
+               
     try:
         await client.kick(member)
     except Exception as e:
         if 'Privilege is too low' in str(e):
-            lol = await client.say(ctx.message.author.mention + "I can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            lol = await client.say(ctx.message.author.mention +  "I can't kick this user." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(lol)
             return
- 
-    embed = discord.Embed(description = "**%s** has been kicked."%member.name, color = 0xF00000)
-    embed.set_footer(text='Glop Blop v1.0')
-    try:
-        await client.say(embed = embed)
-    except:
-        await client.say("**%s** has been kicked."%member.name)   
-    
+    channel = ctx.message.channel
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+
+    join = discord.Embed(title = "Kick", colour = 0xF00000);
+    join.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
+    join.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
+    join.add_field(name = 'REASON', value = str((reason)));
+    join.set_footer(text = 'Glop Blop v1.0');
+        
+    ujoin = discord.Embed(title = "Kick", colour = 0xF00000);
+    ujoin.add_field(name = 'USER', value = str(member.mention) + '\n' + str(member) + '\n' + str(member.id));
+    ujoin.add_field(name = 'MODERATOR', value = str(ctx.message.author.mention) + '\n' + str(ctx.message.author));
+    ujoin.set_footer(text = 'Glop Blop v1.0');
+
+
+    if reason == 1:
+        try:
+            await client.say(embed = ujoin);
+        except:
+            await client.say(str(member) + " has been kickedd.")
+    else:
+        try:
+            await client.say(embed = join);
+        except:
+            await client.say(str(member) + " has been kicked. Reason:" + str(reason))
+    return
+
 #t8 - BAN DZIALA #
 
 @client.command(pass_context = True)
