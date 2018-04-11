@@ -331,19 +331,34 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
 async def unmute(ctx, *, member : discord.Member):
     '''Unmutes The Muted Memeber'''
     
-    server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Mute")
     member_roles = [r.name.lower() for r in member.roles]
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
-    
+    user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+    server = ctx.message.server
+    channel = ctx.message.channel
+    can_manage_roles = channel.permissions_for(server.me).manage_roles
+    role = discord.utils.get(server.roles,name="Mute")  
+
     if ctx.message.author.server_permissions.administrator == False:
         if ctx.message.author.id == (ownerid):
             pass
-        else:        
-            perm = await client.say(ctx.message.author.mention + " You're not server admin." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        else:
+            perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
-            await client.delete_message(perm)        
+            await client.delete_message(perm)
             return
+        
+    if member == None:
+        ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(ment)
+        return
+    
+    if can_manage_roles == False:
+        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(botperm)
+        return
+       
     if "mute" not in member_roles:
         pedro = await client.say(ctx.message.author.mention + " I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         await asyncio.sleep(10)
