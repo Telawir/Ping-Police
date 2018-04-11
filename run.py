@@ -330,7 +330,6 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
 @client.command(pass_context = True)
 async def unmute(ctx, *, member : discord.Member = None):
     try:
-    '''Unmutes The Muted Memeber'''
     
         member_roles = [r.name.lower() for r in member.roles]
         user_roles = [r.name.lower() for r in ctx.message.author.roles] 
