@@ -1098,4 +1098,3 @@ async def now(ctx):
 #must import os
 
 client.run(os.getenv('TOKEN')) 
-Mute
