@@ -36,7 +36,7 @@ async def help(ctx):
     g4 = str("**serverinfo**            :: Displays Info About The Server")
     g5 = str("**roles**               :: Displays a list of all of the server roles")
 #Moderation commands
-    t1 = str("**mute @user [lenght]**     :: Mutes a member for 5 minutes (requires Mute role)")
+    t1 = str("**mute @user [lenght]**     :: Mutes a member (requires Mute role)")
     t2 = str("**unmute @user**                 :: Unmutes a member:")
     t3 = str("**purge [amount]**              :: Deletes 2-100 messages from the channel")
     t4 = str("**lockdown**                          :: Locks the channel down.")
