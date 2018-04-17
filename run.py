@@ -717,9 +717,9 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await asyncio.sleep(30)
             await client.delete_message(noroleblinded)
             return
-        warn = await client.say(":warning: " + (member.mention) + ", due to the three warnings you've been given up to now and the the next rule violation, you have been blinded." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        warn = await client.say(":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
         try:
-            msg = await client.send_message(member, ":warning: " + (member.mention) + ", due to the three warnings you've been given up to now and the the next rule violation, you have been blinded in " + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+            msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
         except:
             pass
         return
