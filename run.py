@@ -58,7 +58,7 @@ async def help(ctx):
     join.add_field(name = '> Bot:', value = str(mwot));
     join.add_field(name = '> Server:', value = str(gwot));
     join.add_field(name = '> Administration:', value = str(twot));
-    join.set_footer(text = 'Created for: %s'%author);
+
 
     try:
         await client.say(embed = join);
