@@ -98,6 +98,14 @@ async def botinvite():
 @client.command(pass_context = True)
 async def serverinvite(ctx):
     """Pm's invitation link to the server to the user who requested it"""
+     if not ctx.message.author.server_permissions.create_instant_invite == True:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            erg = await client.say(ctx.message.author.mention + " You do not have permission to create instant invite. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(erg)
+            return    
     invite = await client.create_invite(ctx.message.channel,max_uses=1,xkcd=True)
     await client.whisper(invite.url)
     await client.say("Check Your Dm's :wink: ")
