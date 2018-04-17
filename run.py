@@ -98,7 +98,7 @@ async def botinvite():
 @client.command(pass_context = True)
 async def serverinvite(ctx):
     """Pm's invitation link to the server to the user who requested it"""
-     if not ctx.message.author.server_permissions.create_instant_invite == True:
+    if not ctx.message.author.server_permissions.create_instant_invite == True:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
