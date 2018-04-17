@@ -629,7 +629,7 @@ async def unlock(ctx):
 
 #tt5
 @client.command(pass_context = True)
-async def slock(ctx):
+async def sunlock(ctx):
     channel = ctx.message.channel
     server = ctx.message.server
     roleks = server.default_role
