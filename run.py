@@ -42,6 +42,7 @@ async def help(ctx):
     t4 = str("**lockdown**                          :: Locks the channel down.")
     tt4 = str("**slock**                                  :: Locks all the channels down.")   
     t5 = str("**unlock**                               :: Unlocks the channel.")
+    tt5 = str("**sunlock**                                  :: Unlocks all the channels.") 
     t6 = str("**warn @user [reason]**    :: Warns a member.")
     t7 = str("**kick @user**                       :: Kicks a member")
     t8 = str("**ban @user <reason>**     :: Bans a member")
@@ -51,7 +52,7 @@ async def help(ctx):
     got = str(pref0)     
     mwot = str(m1 + '\n' + m2 + '\n' + m3 + '\n' + m4) 
     gwot = str(g1 + '\n' + g2 + '\n' + g3 + '\n' + g4)
-    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + tt4 + '\n' + t5 + '\n' + t6 + '\n' + t7 + '\n' + t8 + '\n' + t9)
+    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + tt4 + '\n' + t5 + '\n' + tt5 + '\n' + t6 + '\n' + t7 + '\n' + t8 + '\n' + t9)
     
     join = discord.Embed(title = 'All the available bot commands', description = 'Glop Blop v1.0', colour = 0x0085ff);
     join.add_field(name = '> Prefix:', value = 'The current bot prefix is **' + str(pref0) + '**');
@@ -626,6 +627,37 @@ async def unlock(ctx):
         return
     await client.say("'Send messages' permission for server default role for this channel has been changed to 'None'.")   
 
+#tt5
+@client.command(pass_context = True)
+async def slock(ctx):
+    channel = ctx.message.channel
+    server = ctx.message.server
+    roleks = server.default_role
+    overwrite = discord.PermissionOverwrite()
+    overwrite.send_messages = True
+    role = discord.utils.get(server.roles,name="everyone")
+    
+    if ctx.message.author.server_permissions.manage_channels == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:        
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(korg)
+            return
+    pass
+
+    overwrite = server.default_role.permissions
+    overwrite.send_messages = True
+    
+    try:
+        await client.edit_role(server, roleks, overwrites = overwrite)
+    except Exception as e:
+        await client.say("```" + str(e) + "```")
+        return
+    await client.say("All of the channels have been unlocked.")  
+    
+    
 #t6
 @client.command(pass_context = True)
 async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
