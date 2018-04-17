@@ -729,10 +729,12 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.remove_roles(member, warn3role)
         except:
             pass
+        await asyncio.sleep(1)
         try:
             await client.remove_roles(member, warn2role)
         except:
             pass
+        await asyncio.sleep(1)
         try:
             await client.remove_roles(member, warn1role)
         except:
@@ -756,6 +758,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.remove_roles(member, warn2role)
         except:
             pass
+        await asyncio.sleep(1)
         try:
             await client.remove_roles(member, warn1role)
         except:
