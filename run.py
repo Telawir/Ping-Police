@@ -709,6 +709,13 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     
     member_roles = [r.name.lower() for r in member.roles]
     
+    if "blinded" in member_roles:
+        alreadybl = await client.say(ctx.message.author.mention + ", I can't warn this user, they are already blinded."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+        await asyncio.sleep(60)
+        await client.delete_message(noroleblinded)
+        return
+            
+       
     if "third warning" in member_roles:
         try:
             await client.add_roles(member, blindedrole)
@@ -718,6 +725,18 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.delete_message(noroleblinded)
             return
         warn = await client.say(":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        try:
+            await client.remove_roles(member, warn3role)
+        except:
+            pass
+        try:
+            await client.remove_roles(member, warn2role)
+        except:
+            pass
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
         try:
             msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
         except:
@@ -733,6 +752,14 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.delete_message(norole3)
             return
         warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your third warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        try:
+            await client.remove_roles(member, warn2role)
+        except:
+            pass
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
         return
     
     if "first warning" in member_roles:
@@ -744,6 +771,10 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.delete_message(norole2)
             return
         warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your second warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```") 
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
         return
     
     else:
