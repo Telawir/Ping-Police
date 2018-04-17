@@ -31,7 +31,7 @@ async def help(ctx):
     m4 = str("**botinvite**      :: Gives you a link to invite this bot to your server")
 #Server commands    
     g1 = str("**serverinvite**         :: Gives you an invitation link to this server")
-    g2 = str("**serverbans**                    :: Gets a list of banned users")    
+    g2 = str("**serverbans**            :: Gets a list of banned users")    
     g3 = str("**userinfo @user**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
     g5 = str("**roles**               :: Displays a list of all of the server roles")
@@ -42,7 +42,7 @@ async def help(ctx):
     t4 = str("**lockdown**                          :: Locks the channel down.")
     tt4 = str("**slock**                                  :: Locks all the channels down.")   
     t5 = str("**unlock**                               :: Unlocks the channel.")
-    tt5 = str("**sunlock**                                  :: Unlocks all the channels.") 
+    tt5 = str("**sunlock**                             :: Unlocks all the channels.") 
     t6 = str("**warn @user [reason]**    :: Warns a member.")
     t7 = str("**kick @user**                       :: Kicks a member")
     t8 = str("**ban @user <reason>**     :: Bans a member")
