@@ -688,7 +688,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     #if not belo == 359426518730145802: #checks if the command runs on my private 
         #await client.say("ugabanga!")
         #return
-    if ctx.message.author.server_permissions.ban_members == False:
+    if ctx.message.author.server_permissions.kick_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:
