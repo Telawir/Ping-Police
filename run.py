@@ -184,13 +184,36 @@ async def serverinfo(ctx):
         roles = ', '.join(roles);
         channels = len(server.channels);
         time = str(server.created_at); time = time.split(' '); time= time[0];
+        flag = str(server.region)
 
+        if any(word in flag for word in["eu", "us", "singapore", "sydney", "hongkong", "japan", "brazil", "russia"]):        
+            if "eu" in flag:
+                flag = str(":flag_eu:")
+            if "us" in flag:
+                flag = str(":flag_us:")
+            if "singapore" in flag:
+                flag = str(":flag_sg:")
+            if "sydney" in flag:
+                flag = str(":flag_au:")
+            if "russia" in flag:
+                flag = str(":flag_ru:")
+            if "hongkong" in flag:
+                flag = str(":flag_hk:")
+            if "japan" in flag:
+                flag = str(":flag_jp:")
+            if "brazil" in flag:
+                flag = str(":flag_br:")
+        else:
+            flag = str(1)
+                               
         embed = discord.Embed(description= "(ID: " + str(server.id) + ")",title = 'Info on ' + str(server), colour = 0x0085ff);
         embed.set_thumbnail(url = server.icon_url);
         embed.add_field(name = ' > Channels', value = "* " + str(channels) + " channels" + '\n' + "* AFK: " + str(server.afk_channel) + '\n' + "* AFK Timeout: " + str(server.afk_timeout));
         embed.add_field(name = ' > Members', value = "* " + str(server.member_count) + " members" + '\n' + "* Owner: " + str(server.owner) + '\n' + "* Owner ID: " + str(server.owner.id));
-        embed.add_field(name = ' > Other', value = "* Server Region: '%s'"%str(server.region) + '\n' + "* Created on: " + server.created_at.__format__(' %d %B %Y at %H:%M:%S') + '\n' + "* Verification Level: " + str(server.verification_level) + '\n' + "* Roles: '%s'"%str(role_length));
-
+        if flag == 1:
+            embed.add_field(name = ' > Other', value = "* Server Region: '%s'"%str(server.region) + '\n' + "* Created on: " + server.created_at.__format__(' %d %B %Y at %H:%M:%S') + '\n' + "* Verification Level: " + str(server.verification_level) + '\n' + "* Roles: '%s'"%str(role_length));
+        else:
+            embed.add_field(name = ' > Other', value = "* Server Region: '%s'"%str(server.region) + " " + str(flag) +'\n' + "* Created on: " + server.created_at.__format__(' %d %B %Y at %H:%M:%S') + '\n' + "* Verification Level: " + str(server.verification_level) + '\n' + "* Roles: '%s'"%str(role_length));            
         try:
             await client.say(embed = embed);
         except:
