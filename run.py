@@ -103,7 +103,7 @@ async def serverinvite(ctx):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            erg = await client.say(ctx.message.author.mention + " You do not have permission to create instant invite. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            erg = await client.say(ctx.message.author.mention + " You don't have permission to create instant invite. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(erg)
             return    
@@ -120,7 +120,7 @@ async def serverbans(ctx):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            erg = await client.say(ctx.message.author.mention + " You do not have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            erg = await client.say(ctx.message.author.mention + " You don't have permission to view audit log. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(erg)
             return
@@ -233,7 +233,7 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
         if ctx.message.author.id == (ownerid):
             pass
         else:
-            perm = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            perm = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
@@ -402,7 +402,7 @@ async def purge(ctx, number : int = 34871):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            borg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            borg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             try: 
                 await client.delete_message(borg)
@@ -534,7 +534,7 @@ async def lockdown(ctx):
     else:
         if belo == 359426518730145802: #checks if the command runs on my private server
             if channel.overwrites_for(ctx.message.author).manage_channels == False:
-                bork = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                bork = await client.say(ctx.message.author.mention + " You don't have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 try:
                     await client.delete_message(bork)
@@ -545,7 +545,7 @@ async def lockdown(ctx):
                 if ctx.message.author.server_permissions.manage_channels == True:
                     pass
                 else:
-                    korg = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    korg = await client.say(ctx.message.author.mention + " You don't have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                     await asyncio.sleep(10)
                     try:
                         await client.delete_message(korg)
@@ -556,7 +556,7 @@ async def lockdown(ctx):
                 pass
         else:
             if ctx.message.author.server_permissions.ban_members == False:  
-                borg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                borg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 try: 
                     await client.delete_message(borg)
@@ -572,7 +572,7 @@ async def lockdown(ctx):
      #   if ctx.message.author.id == (ownerid):
      #       pass
       #  else:        
-       #     korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+       #     korg = await client.say(ctx.message.author.mention + " You don't have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
         #    await asyncio.sleep(10)
          #   await client.delete_message(korg)
           #  return
@@ -601,7 +601,7 @@ async def slock(ctx):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
@@ -629,7 +629,7 @@ async def unlock(ctx):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
@@ -822,7 +822,7 @@ async def kick(ctx, member : discord.Member = None, *, reason : str = 1):
         if ctx.message.author.id == (ownerid):
             pass
         else:
-            missed = await client.say(ctx.message.author.mention + " You do not have permission to kick members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            missed = await client.say(ctx.message.author.mention + " You don't have permission to kick members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(missed)
             return
@@ -934,7 +934,7 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
         if ctx.message.author.id == (ownerid):
             pass
         else:
-            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            missed = await client.say(ctx.message.author.mention + " You don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(missed)
             return
@@ -1046,7 +1046,7 @@ async def soft(ctx, user: discord.Member = None, *, reason: str = None):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            missed = await client.say(ctx.message.author.mention + " You do not have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            missed = await client.say(ctx.message.author.mention + " You don't have permission to ban members." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(missed)
             return
