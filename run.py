@@ -658,7 +658,7 @@ async def sunlock(ctx):
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
