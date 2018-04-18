@@ -31,7 +31,7 @@ async def help(ctx):
     m4 = str("**botinvite**      :: Gives you a link to invite this bot to your server")
 #Server commands    
     g1 = str("**serverinvite**         :: Gives you an invitation link to this server")
-    g2 = str("**serverbans**            :: Gets a list of banned users")    
+    g2 = str("**serverbans**          :: Gets a list of banned users")    
     g3 = str("**userinfo @user**   :: Displays Info About The User // __in development__ //")
     g4 = str("**serverinfo**            :: Displays Info About The Server")
     g5 = str("**roles**               :: Displays a list of all of the server roles")
@@ -229,11 +229,11 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
     can_manage_roles = channel.permissions_for(server.me).manage_roles
     role = discord.utils.get(server.roles,name="Mute")  
 
-    if ctx.message.author.server_permissions.administrator == False:
+    if ctx.message.author.server_permissions.kick_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:
-            perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            perm = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
@@ -346,11 +346,11 @@ async def unmute(ctx, *, member : discord.Member = None):
         can_manage_roles = channel.permissions_for(server.me).manage_roles
         role = discord.utils.get(server.roles,name="Mute")  
 
-        if ctx.message.author.server_permissions.administrator == False:
+        if ctx.message.author.server_permissions.kick_members == False:
             if ctx.message.author.id == (ownerid):
                 pass
             else:
-                perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                perm = await client.say(ctx.message.author.mention + " You don't have permission to use this commmand." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 await client.delete_message(perm)
                 return
@@ -397,11 +397,12 @@ async def purge(ctx, number : int = 34871):
     if  not can_sendmessages:
         return 
     
-    if ctx.message.author.server_permissions.manage_messages == False:
+    #if ctx.message.author.server_permissions.manage_messages == False:
+    if ctx.message.author.server_permissions.ban_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            borg = await client.say(ctx.message.author.mention + " You do not have permission to manage and delete messages." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            borg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             try: 
                 await client.delete_message(borg)
@@ -524,31 +525,47 @@ async def lockdown(ctx):
     server = ctx.message.server
     roleks = server.default_role
     overwrite = discord.PermissionOverwrite()
-    
+    belo = int(server.id)
+    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+
+
     if ctx.message.author.id == (ownerid):
         pass
     else:
-        if channel.overwrites_for(ctx.message.author).manage_channels == False:
-            bork = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            try:
-                await client.delete_message(bork)
-            except:
-                return
-            return
-        if channel.overwrites_for(ctx.message.author).manage_channels == None:
-            if ctx.message.author.server_permissions.manage_channels == True:
-                pass
-            else:
-                korg = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        if belo == 359426518730145802: #checks if the command runs on my private server
+            if channel.overwrites_for(ctx.message.author).manage_channels == False:
+                bork = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
                 await asyncio.sleep(10)
                 try:
-                    await client.delete_message(korg)
+                    await client.delete_message(bork)
                 except:
                     return
                 return
+            if channel.overwrites_for(ctx.message.author).manage_channels == None:
+                if ctx.message.author.server_permissions.manage_channels == True:
+                    pass
+                else:
+                    korg = await client.say(ctx.message.author.mention + " You do not have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    try:
+                        await client.delete_message(korg)
+                    except:
+                        return
+                    return
+            else:
+                pass
         else:
-            pass
+            if ctx.message.author.server_permissions.ban_members == False:  
+                borg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                try: 
+                    await client.delete_message(borg)
+                except:
+                    return
+                return   
+            else:
+                pass
+            
          
     
     #if ctx.message.author.server_permissions.manage_channels == False:
@@ -580,11 +597,11 @@ async def slock(ctx):
     overwrite.send_messages = False
     role = discord.utils.get(server.roles,name="everyone")
     
-    if ctx.message.author.server_permissions.manage_channels == False:
+    if ctx.message.author.server_permissions.ban_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
@@ -608,11 +625,11 @@ async def unlock(ctx):
     roleks = server.default_role
     overwrite = discord.PermissionOverwrite()
     
-    if ctx.message.author.server_permissions.manage_channels == False:
+    if ctx.message.author.server_permissions.ban_members == False: 
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
@@ -637,11 +654,11 @@ async def sunlock(ctx):
     overwrite.send_messages = True
     role = discord.utils.get(server.roles,name="everyone")
     
-    if ctx.message.author.server_permissions.manage_channels == False:
+    if ctx.message.author.server_permissions.ban_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:        
-            korg = await client.say(ctx.message.author.mention + " You do not have permission to manage channels." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            korg = await client.say(ctx.message.author.mention + " You do not have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(korg)
             return
@@ -671,11 +688,11 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
     #if not belo == 359426518730145802: #checks if the command runs on my private 
         #await client.say("ugabanga!")
         #return
-    if ctx.message.author.server_permissions.administrator == False:
+    if ctx.message.author.server_permissions.ban_members == False:
         if ctx.message.author.id == (ownerid):
             pass
         else:
-            perm = await client.say(ctx.message.author.mention + " You do not have admin permissions." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            perm = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
             await asyncio.sleep(10)
             await client.delete_message(perm)
             return
