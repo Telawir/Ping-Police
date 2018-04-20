@@ -649,14 +649,43 @@ async def unlock(ctx):
     roleks = server.default_role
     overwrite = discord.PermissionOverwrite()
     
-    if ctx.message.author.server_permissions.ban_members == False: 
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:        
-            korg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(korg)
-            return
+    if ctx.message.author.id == (ownerid):
+        pass
+    else:
+        belo = int(server.id)
+        if belo == 359426518730145802: #checks if the command runs on my private server
+            if channel.overwrites_for(ctx.message.author).manage_channels == False:
+                bork = await client.say(ctx.message.author.mention + " You don't have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                try:
+                    await client.delete_message(bork)
+                except:
+                    return
+                return
+            if channel.overwrites_for(ctx.message.author).manage_channels == None:
+                if ctx.message.author.server_permissions.manage_channels == True:
+                    pass
+                else:
+                    korg = await client.say(ctx.message.author.mention + " You don't have permission to manage this channel." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                    await asyncio.sleep(10)
+                    try:
+                        await client.delete_message(korg)
+                    except:
+                        return
+                    return
+            else:
+                pass
+        else:
+            if ctx.message.author.server_permissions.ban_members == False:  
+                borg = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+                await asyncio.sleep(10)
+                try: 
+                    await client.delete_message(borg)
+                except:
+                    return
+                return   
+            else:
+                pass
         
     overwrite = channel.overwrites_for(roleks)
     overwrite.send_messages = None
