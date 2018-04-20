@@ -295,21 +295,22 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
         await asyncio.sleep(10)
         await client.delete_message(pedro)        
         return
+    try:
+        if time == 0:
+            ment = await client.say(ctx.message.author.mention +  " No valid mute duration entered." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(ment)
+            return
     
-    if time == 0:
-        ment = await client.say(ctx.message.author.mention +  " No valid mute duration entered." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(ment)
-        return
-    
-    time = int(time)
-    if time > 10080 or time < 1:
-        ment = await client.say(ctx.message.author.mention +  "Please enter a mute duration in valid time format. Enter the time in minutes (1-10080)" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(ment)
-        return
+        time = int(time)
+        if time > 10080 or time < 1:
+            ment = await client.say(ctx.message.author.mention +  "Please enter a mute duration in valid time format. Enter the time in minutes (1-10080)" + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(ment)
+            return
     time = str(time)
-
+    except Exception as e:
+        await client.say(e)
 
     pass
 
