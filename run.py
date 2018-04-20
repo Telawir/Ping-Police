@@ -36,24 +36,23 @@ async def help(ctx):
     g4 = str("**serverinfo**            :: Displays Info About The Server")
     g5 = str("**roles**               :: Displays a list of all of the server roles")
 #Moderation commands
-    
     t1 = str("**mute @user [lenght]**     :: Mutes a member (requires Mute role)")
     t2 = str("**unmute @user**                 :: Unmutes a member:")
-    t3 = str("**warn @user [reason]**    :: Warns a member.")
-    t4 = str("**purge [amount]**              :: Deletes 2-100 messages from the channel")
-    t5 = str("**lockdown**                          :: Locks the channel down.")
-    tt5 = str("**slock**                                  :: Locks all the channels down.")   
+    t3 = str("**purge [amount]**              :: Deletes 2-100 messages from the channel")
+    t4 = str("**lockdown**                          :: Locks the channel down.")
+    t5 = str("**slock**                                  :: Locks all the channels down.")   
     t6 = str("**unlock**                               :: Unlocks the channel.")
-    tt6 = str("**sunlock**                             :: Unlocks all the channels.") 
-    t7 = str("**kick @user <reason>**     :: Kicks a member")
-    t8 = str("**ban @user <reason>**     :: Bans a member")
-    t9 = str("**soft @user <reason>**    :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
+    t7 = str("**sunlock**                             :: Unlocks all the channels.")
+    t8 = str("**warn @user [reason]**    :: Warns a member.")
+    t9 = str("**kick @user <reason>**     :: Kicks a member")
+    t10 = str("**ban @user <reason>**     :: Bans a member")
+    t11 = str("**soft @user <reason>**    :: Bans and automatically unbans a member, deletes their messages from the last 24h.")
 
 
     got = str(pref0)     
     mwot = str(m1 + '\n' + m2 + '\n' + m3 + '\n' + m4) 
     gwot = str(g1 + '\n' + g2 + '\n' + g3 + '\n' + g4)
-    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + t5 + '\n' + tt5 + '\n' + t6 + '\n' + tt6 + '\n' + t7 + '\n' + t8 + '\n' + t9)
+    twot = str(t1 + '\n' + t2 + '\n' + t3 + '\n' + t4 + '\n' + t5 + '\n' + t6 + '\n' + t7 + '\n' + t8 + '\n' + t9 + '\n' + t10 + '\n' + t11)
     
     join = discord.Embed(title = 'All the available bot commands', description = 'Glop Blop v1.0', colour = 0x0085ff);
     join.add_field(name = '> Prefix:', value = 'The current bot prefix is **' + str(pref0) + '**');
@@ -408,140 +407,7 @@ async def unmute(ctx, *, member : discord.Member = None):
         await client.say(e)
         
         
-#t3
-@client.command(pass_context = True)
-async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
-    
-    server = ctx.message.server
-    role = discord.utils.get(server.roles,name="Mute")
-    channel = ctx.message.channel
-    can_manage_roles = channel.permissions_for(server.me).manage_roles
-    can_send_messages = channel.permissions_for(server.me).send_messages
-    #belo = int(server.id)  
-    #if not belo == 359426518730145802: #checks if the command runs on my private 
-        #await client.say("ugabanga!")
-        #return
-    if ctx.message.author.server_permissions.kick_members == False:
-        if ctx.message.author.id == (ownerid):
-            pass
-        else:
-            perm = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-            await asyncio.sleep(10)
-            await client.delete_message(perm)
-            return
-    
-    if can_manage_roles == False:
-        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(botperm)
-        return     
-    if can_send_messages == False:
-        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(botperm)
-        return         
-    if member == None:
-        ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
-        await asyncio.sleep(10)
-        await client.delete_message(ment)
-        return
-    if reason == 1:
-        reasonres = await client.say(ctx.message.author.mention +  " No reason entered." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-        await asyncio.sleep(30)
-        await client.delete_message(reasonres)
-        return
-    pass
-
-    blindedrole = discord.utils.get(server.roles,name="Blinded")
-    warn1role = discord.utils.get(server.roles,name="First warning")
-    warn2role = discord.utils.get(server.roles,name="Second warning")
-    warn3role = discord.utils.get(server.roles,name="Third warning")
-    
-    member_roles = [r.name.lower() for r in member.roles]
-    
-    if "blinded" in member_roles:
-        alreadybl = await client.say(ctx.message.author.mention + ", I can't warn this user, they are already blinded."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-        await asyncio.sleep(60)
-        await client.delete_message(noroleblinded)
-        return
-            
-       
-    if "third warning" in member_roles:
-        try:
-            await client.add_roles(member, blindedrole)
-        except:
-            noroleblinded = await client.say(ctx.message.author.mention + ", I couldn't find `Blinded` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-            await asyncio.sleep(30)
-            await client.delete_message(noroleblinded)
-            return
-        warn = await client.say(":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
-        try:
-            await client.remove_roles(member, warn3role)
-        except:
-            pass
-        await asyncio.sleep(1)
-        try:
-            await client.remove_roles(member, warn2role)
-        except:
-            pass
-        await asyncio.sleep(1)
-        try:
-            await client.remove_roles(member, warn1role)
-        except:
-            pass
-        try:
-            msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
-        except:
-            pass
-        return
-    
-    if "second warning" in member_roles:
-        try:
-            await client.add_roles(member, warn3role)
-        except:
-            norole3 = await client.say(ctx.message.author.mention + ", I couldn't find `Third warning` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-            await asyncio.sleep(30)
-            await client.delete_message(norole3)
-            return
-        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your third warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
-        try:
-            await client.remove_roles(member, warn2role)
-        except:
-            pass
-        await asyncio.sleep(1)
-        try:
-            await client.remove_roles(member, warn1role)
-        except:
-            pass
-        return
-    
-    if "first warning" in member_roles:
-        try:
-            await client.add_roles(member, warn2role)
-        except:
-            norole2 = await client.say(ctx.message.author.mention + ", I couldn't find `Second warning` role or it's the higher rank than my highest role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-            await asyncio.sleep(30)
-            await client.delete_message(norole2)
-            return
-        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your second warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```") 
-        try:
-            await client.remove_roles(member, warn1role)
-        except:
-            pass
-        return
-    
-    else:
-        try:
-            await client.add_roles(member, warn1role)
-        except:
-            norole1 = await client.say(ctx.message.author.mention + ", I couldn't find `First warning` role or it's the higher rank than my highest role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
-            await asyncio.sleep(30)
-            await client.delete_message(norole1)
-            return
-        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your first warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
-        return    
-    
-#t4 - Clears The Chat
+#t3 - Clears The Chat
 
 @client.command(pass_context=True)       
 async def purge(ctx, number : int = 34871):
@@ -676,7 +542,7 @@ async def purge(ctx, number : int = 34871):
             return
     return
 
-#t5
+#t4
 @client.command(pass_context = True)
 async def lockdown(ctx):
     channel = ctx.message.channel
@@ -745,7 +611,7 @@ async def lockdown(ctx):
         return
     await client.say("The channel has been locked.")  
 
-#tt5
+#t5
 @client.command(pass_context = True)
 async def slock(ctx):
     channel = ctx.message.channel
@@ -802,7 +668,7 @@ async def unlock(ctx):
         return
     await client.say("'Send messages' permission for server default role for this channel has been changed to 'None'.")   
 
-#tt6
+#t7
 @client.command(pass_context = True)
 async def sunlock(ctx):
     channel = ctx.message.channel
@@ -833,8 +699,140 @@ async def sunlock(ctx):
     await client.say("All of the channels have been unlocked.")  
     
     
+#t8
+@client.command(pass_context = True)
+async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
+    
+    server = ctx.message.server
+    role = discord.utils.get(server.roles,name="Mute")
+    channel = ctx.message.channel
+    can_manage_roles = channel.permissions_for(server.me).manage_roles
+    can_send_messages = channel.permissions_for(server.me).send_messages
+    #belo = int(server.id)  
+    #if not belo == 359426518730145802: #checks if the command runs on my private 
+        #await client.say("ugabanga!")
+        #return
+    if ctx.message.author.server_permissions.kick_members == False:
+        if ctx.message.author.id == (ownerid):
+            pass
+        else:
+            perm = await client.say(ctx.message.author.mention + " You don't have permission to use this command." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+            await asyncio.sleep(10)
+            await client.delete_message(perm)
+            return
+    
+    if can_manage_roles == False:
+        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(botperm)
+        return     
+    if can_send_messages == False:
+        botperm = await client.say(ctx.message.author.mention + " I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(botperm)
+        return         
+    if member == None:
+        ment = await client.say(ctx.message.author.mention +  " No user mentioned." + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(ment)
+        return
+    if reason == 1:
+        reasonres = await client.say(ctx.message.author.mention +  " No reason entered." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+        await asyncio.sleep(30)
+        await client.delete_message(reasonres)
+        return
+    pass
 
-#t7 - Kicks a Member From The Server
+    blindedrole = discord.utils.get(server.roles,name="Blinded")
+    warn1role = discord.utils.get(server.roles,name="First warning")
+    warn2role = discord.utils.get(server.roles,name="Second warning")
+    warn3role = discord.utils.get(server.roles,name="Third warning")
+    
+    member_roles = [r.name.lower() for r in member.roles]
+    
+    if "blinded" in member_roles:
+        alreadybl = await client.say(ctx.message.author.mention + ", I can't warn this user, they are already blinded."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+        await asyncio.sleep(60)
+        await client.delete_message(noroleblinded)
+        return
+            
+       
+    if "third warning" in member_roles:
+        try:
+            await client.add_roles(member, blindedrole)
+        except:
+            noroleblinded = await client.say(ctx.message.author.mention + ", I couldn't find `Blinded` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            await asyncio.sleep(30)
+            await client.delete_message(noroleblinded)
+            return
+        warn = await client.say(":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        try:
+            await client.remove_roles(member, warn3role)
+        except:
+            pass
+        await asyncio.sleep(1)
+        try:
+            await client.remove_roles(member, warn2role)
+        except:
+            pass
+        await asyncio.sleep(1)
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
+        try:
+            msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        except:
+            pass
+        return
+    
+    if "second warning" in member_roles:
+        try:
+            await client.add_roles(member, warn3role)
+        except:
+            norole3 = await client.say(ctx.message.author.mention + ", I couldn't find `Third warning` role or it's the higher rank than my highest role."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            await asyncio.sleep(30)
+            await client.delete_message(norole3)
+            return
+        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your third warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        try:
+            await client.remove_roles(member, warn2role)
+        except:
+            pass
+        await asyncio.sleep(1)
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
+        return
+    
+    if "first warning" in member_roles:
+        try:
+            await client.add_roles(member, warn2role)
+        except:
+            norole2 = await client.say(ctx.message.author.mention + ", I couldn't find `Second warning` role or it's the higher rank than my highest role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            await asyncio.sleep(30)
+            await client.delete_message(norole2)
+            return
+        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your second warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```") 
+        try:
+            await client.remove_roles(member, warn1role)
+        except:
+            pass
+        return
+    
+    else:
+        try:
+            await client.add_roles(member, warn1role)
+        except:
+            norole1 = await client.say(ctx.message.author.mention + ", I couldn't find `First warning` role or it's the higher rank than my highest role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --")
+            await asyncio.sleep(30)
+            await client.delete_message(norole1)
+            return
+        warn = await client.say(":warning: " + (member.mention) + ", you have been warned. This is your first warning." '\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+        return    
+    
+#t9 - Kicks a Member From The Server
 
 @client.command(pass_context = True)
 async def kick(ctx, member : discord.Member = None, *, reason : str = 1):
@@ -946,7 +944,7 @@ async def kick(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.say(str(member) + " has been kicked. Reason:" + str(reason))
     return
 
-#t8 - BAN DZIALA #
+#t10 - BAN DZIALA #
 
 @client.command(pass_context = True)
 async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
@@ -1058,8 +1056,8 @@ async def ban(ctx, member : discord.Member = None, *, reason : str = 1):
             await client.say(str(member) + " has been banned. Reason:" + str(reason))
     return
 
-#t9
 
+#t11
 @client.command(pass_context=True)
 async def soft(ctx, user: discord.Member = None, *, reason: str = None):
     """Kicks the user, deleting 1 day worth of messages."""
