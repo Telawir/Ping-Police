@@ -308,7 +308,7 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
             await asyncio.sleep(10)
             await client.delete_message(ment)
             return
-    time = str(time)
+        time = str(time)
     except Exception as e:
         await client.say(e)
 
