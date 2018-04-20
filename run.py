@@ -814,7 +814,7 @@ async def warn(ctx, member : discord.Member = None, *, reason : str = 1):
         except:
             pass
         try:
-            msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings." + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
+            msg = await client.send_message(member, ":warning: " + (member.mention) + ", you have been blinded for disregarding the previous three warnings. Server name: " + str(server) +'\n' + '\n' + "**Reason: ** ```" + str(reason) + "```")
         except:
             pass
         return
