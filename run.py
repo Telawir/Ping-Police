@@ -310,7 +310,10 @@ async def mute(ctx, member : discord.Member = None, *, time : str = 0):
             return
         time = str(time)
     except Exception as e:
-        await client.say(e)
+        ment = await client.say(ctx.message.author.mention +  "No mute duration in **valid time format**. Try to mute the user again. " + '\n' + "-- This message will be deleted automatically in 10 seconds. --")
+        await asyncio.sleep(10)
+        await client.delete_message(ment)
+        return
 
     pass
 
