@@ -20,16 +20,21 @@ async def on_ready():
     print("----------------------")
     
 @client.event
+@client.event
 async def on_message(message):
     server = message.server
           
     if any(word in message.content for word in["<@215761992474951681>", "<@402561083950366730>", "<@438819749065916417>"]):
-        mem = str(message.author)
-        memid = str(message.author.id)
-        try:
-            msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))
-        except:
-            return
+        if message.author.server_permissions.ban_members == False:
+            if message.author.id == (ownerid):
+                pass
+            else:        
+                mem = str(message.author)
+                memid = str(message.author.id)
+                try:
+                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
+                except Exception as e:
+                    print(e)
 
     
 #m2
