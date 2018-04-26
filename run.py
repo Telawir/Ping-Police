@@ -26,15 +26,12 @@ async def on_message(message):
           
     if any(word in message.content for word in["<@224809879884398592>", "<@354641560979111936>", "<@371976663098982400>", "<@311130875461107722>", "<@334269708268470293>", "<@163270868938653698>", "<@281067479927881740>", "<@405654489987547146>", "<@197130820975067137>", "<@249187671912611840>", "<@146009550699364352>"]):
         if message.author.server_permissions.ban_members == False:
-            if message.author.id == (ownerid):
-                pass
-            else:        
-                mem = str(message.author)
-                memid = str(message.author.id)
-                try:
-                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
-                except Exception as e:
-                    print(e)
+            mem = str(message.author)
+            memid = str(message.author.id)
+            try:
+                msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
+            except Exception as e:
+                print(e)
 
     
 #m2
