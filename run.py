@@ -52,13 +52,4 @@ async def setgame(ctx, *, game):
         await client.whisper("Game was set to **{}**!".format(game))
         await client.change_presence(game=discord.Game(name=game))
 
-#m4 
-@client.command()
-async def botinvite():
-    '''Gives you a link to invite this bot to your server!'''
-    await client.say("Check Your Dm's :wink:")
-    await client.whisper(link)
-
-
-
 client.run(os.getenv('TOKEN')) 
