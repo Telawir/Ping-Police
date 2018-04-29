@@ -20,7 +20,6 @@ async def on_ready():
     print("----------------------")
     
 @client.event
-@client.event
 async def on_message(message):
     server = message.server
     await client.change_presence(game=discord.Game(name="Don't ping the devs"))       
@@ -32,6 +31,14 @@ async def on_message(message):
                 msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
             except Exception as e:
                 print(e)
+    if any(word in message.content for word in["<@215761992474951681>"]):
+        if message.author.server_permissions.ban_members == False:
+            mem = str(message.author)
+            memid = str(message.author.id)
+            try:
+                msg = await client.send_message(message.channel, "Don't ping Superplus," + " " + str(mem) + " with userid " + str(memid))                    
+            except Exception as e:
+                print(e)    
 
     
 #m2
