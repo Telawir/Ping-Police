@@ -28,13 +28,13 @@ async def on_message(message):
         belo = int(server.id)
         if belo == 359426518730145802:
             if message.author.server_permissions.ban_members == False:
-            mem = str(message.author)
-            memid = str(message.author.id)
-            try:
-                msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
-            except Exception as e:
-                print(e)
-                return
+                mem = str(message.author)
+                memid = str(message.author.id)
+                try:
+                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
+                except Exception as e:
+                    print(e)
+                    return
         else:         
             if not any(r in user_roles for r in["senior moderator", "moderator", "staff"]):
                 mem = str(message.author)
