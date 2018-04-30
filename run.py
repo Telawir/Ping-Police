@@ -36,7 +36,7 @@ async def on_message(message):
                     print(e)
                     return
         else:         
-            if not any(r in user_roles for r in["senior moderator", "moderators", "staff"]):
+            if not any(r in user_roles for r in["senior moderator", "moderators", "staff", "kogamate"]):
                 mem = str(message.author)
                 memid = str(message.author.id)
                 try:
