@@ -33,7 +33,7 @@ async def on_message(message):
                 print(e)
     if any(word in message.content for word in["<@&440432137301131264>"]
         member_roles = [r.name.lower() for r in member.roles]
-        if message.author.server_permissions.ban_members == False:
+        if message.author.server_permissions.ban_members == True:
             mem = str(message.author)
             memid = str(message.author.id)
             try:
