@@ -38,8 +38,6 @@ async def on_message(message):
         memid = str(message.author.id)
                 
         if belo == 359426518730145802:
-            
-            msg0 = await client.send_message(message.channel, "0")
             if message.author.server_permissions.ban_members == False:
                 try:
                     await client.send_message(kergo, str(server) + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date)
@@ -51,35 +49,21 @@ async def on_message(message):
                     print(e)
                     return
         else:         
-            
-            msg1 = await client.send_message(message.channel, "1")
             if not any(r in user_roles for r in["senior moderator", "moderators", "staff", "kogamate"]):
-                
-                msg2= await client.send_message(message.channel, "2")
                 try:
-                    msg3 = await client.send_message(message.channel, "3Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
+                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                   
                 except Exception as e:
                     print(e)
-                    
-                    msg4 = await client.send_message(message.channel, "4")
 
                 if "warning" in user_roles:
-                    
-                    msg5 = await client.send_message(message.channel, "5")
                     try:
                         await client.add_roles(message.author, mutedrole)
-                        
-                        msg6 = await client.send_message(message.channel, "6")
                     except:
                         try:
-                            
-                            msg7 = await client.send_message(message.channel, "7")
                             await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment")
                         except:
-                            
-                            msg8 = await client.send_message(message.channel, "8")
                             pass
-                        norolemuted = await client.send_message(message.channel, "``` 9I can't find Muted role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        norolemuted = await client.send_message(message.channel, "``` I can't find Muted role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
                         await asyncio.sleep(30)
                         try:
                             await client.delete_message(norolemuted)
@@ -87,14 +71,10 @@ async def on_message(message):
                             return
                         return
                     try:
-                        
-                        msg10 = await client.send_message(message.channel, "10")
                         await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Mute")
                     except:
-                        
-                        msg11 = await client.send_message(message.channel, "11")
                         pass
-                    warn = await client.send_message(message.channel, message.author.mention + ", 12you have been muted for disregarding the previous warning and pinging the developer.")
+                    warn = await client.send_message(message.channel, message.author.mention + ", you have been muted for disregarding the previous warning and pinging the developer.")
                     try:
                         await client.remove_roles(message.author, warningrole)
                     except:
@@ -106,34 +86,24 @@ async def on_message(message):
                         return
                 else:
                     try:
-                        
-                        msg13 = await client.send_message(message.channel, "13")
                         await client.add_roles(message.author, warningrole)
                     except Exception as e:
                         try:
-                            
-                            msg14 = await client.send_message(message.channel, "14" + str(e))
                             await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment")
                         except:
                             pass
-                        norolewarning = await client.send_message(message.channel, "```15 I couldn't find Warning role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        norolewarning = await client.send_message(message.channel, "``` I couldn't find Warning role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
                         await asyncio.sleep(30)
                         try:
                             await client.delete_message(norolewarning)
                         except:
                             return
                     try:
-                        
-                        msg16 = await client.send_message(message.channel, "16")
                         await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Warning")
                     except:
                         pass
                     
                     
-
-
-
-    
 #m2
 @client.command()
 async def ping():
