@@ -24,7 +24,7 @@ async def on_message(message):
     server = message.server
     await client.change_presence(game=discord.Game(name="Don't ping the devs"))       
     if any(word in message.content for word in["<@215761992474951681>", "<@224809879884398592>", "<@354641560979111936>", "<@371976663098982400>", "<@311130875461107722>", "<@334269708268470293>", "<@163270868938653698>", "<@281067479927881740>", "<@405654489987547146>", "<@197130820975067137>", "<@249187671912611840>", "<@146009550699364352>", "<@258540501261746176>"]):
-        user_roles = [r.name.lower() for r in ctx.message.author.roles]
+        user_roles = [r.name.lower() for r in message.author.roles]
         belo = int(server.id)
         if belo == 359426518730145802:
             if message.author.server_permissions.ban_members == False:
