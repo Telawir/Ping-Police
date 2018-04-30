@@ -57,7 +57,7 @@ async def on_message(message):
                 
                 msg2= await client.send_message(message.channel, "2")
                 try:
-                    msg = await client.send_message(message.channel, "3Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
+                    msg3 = await client.send_message(message.channel, "3Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                    
                 except Exception as e:
                     print(e)
                     
@@ -69,11 +69,11 @@ async def on_message(message):
                     try:
                         await client.add_roles(message.author, mutedrole)
                         
-                    msg6 = await client.send_message(message.channel, "6")
+                        msg6 = await client.send_message(message.channel, "6")
                     except:
                         try:
                             
-                        msg7 = await client.send_message(message.channel, "7")
+                            msg7 = await client.send_message(message.channel, "7")
                             await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment")
                         except:
                             
@@ -107,7 +107,7 @@ async def on_message(message):
                 else:
                     try:
                         
-                    msg13 = await client.send_message(message.channel, "13")
+                        msg13 = await client.send_message(message.channel, "13")
                         await client.add_roles(message.author, warningrole)
                     except:
                         try:
