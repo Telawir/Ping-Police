@@ -41,7 +41,7 @@ async def on_message(message):
             except Exception as e:
                 print(e)
      
-return 
+                return 
     
 #m2
 @client.command()
