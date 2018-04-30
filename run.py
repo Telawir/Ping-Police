@@ -109,10 +109,10 @@ async def on_message(message):
                         
                         msg13 = await client.send_message(message.channel, "13")
                         await client.add_roles(message.author, warningrole)
-                    except:
+                    except Exception as e:
                         try:
                             
-                            msg14 = await client.send_message(message.channel, "14")
+                            msg14 = await client.send_message(message.channel, "14" + str(e))
                             await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment")
                         except:
                             pass
