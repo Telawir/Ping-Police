@@ -102,16 +102,93 @@ async def on_message(message):
                         await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Warning")
                     except:
                         pass
-                    
-                    
-#m2
-@client.command()
-async def ping():
-    '''See if The Bot is Working'''
-    pingtime = time.time()
-    pingms = await client.say("Pinging...")
-    ping = time.time() - pingtime
-    await client.edit_message(pingms, ":ping_pong:  time is `%.0001f seconds`" % ping)
+                        
+    await client.process_commands(message)
+
+    
+#3.1
+@client.command(pass_context = True)
+async def unmute(ctx, *, member : discord.Member = None):
+
+    try:
+
+        user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+        server = ctx.message.server
+        channel = ctx.message.channel
+        can_manage_roles = channel.permissions_for(server.me).manage_roles
+        role = discord.utils.get(server.roles,name="Muted")  
+
+        if not any(r in user_roles for r in["senior moderator", "moderators", "staff"]):
+            return
+        
+        if member == None:
+            ment = await client.say("```" + str(ctx.message.author) +  ", no user mentioned." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(ment)
+            return
+        member_roles = [r.name.lower() for r in member.roles]
+        
+        if can_manage_roles == False:
+            botperm = await client.say("```" + str(ctx.message.author) + ", I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(botperm)
+            return
+       
+        if "muted" not in member_roles:
+            pedro = await client.say("```" + str(ctx.message.author) + ", I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(pedro)        
+            return 
+        
+        pass
+        
+        await client.remove_roles(member, role)
+        await client.say("**" + str(member) + "** has no longer Muted role!")
+        
+    except:
+        server = server
+        
+        
+@client.command(pass_context = True)
+async def delwarn(ctx, *, member : discord.Member = None):
+
+    try:
+        user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+        server = ctx.message.server
+        channel = ctx.message.channel
+        can_manage_roles = channel.permissions_for(server.me).manage_roles
+        role = discord.utils.get(server.roles,name="Warning")  
+
+        if not any(r in user_roles for r in["senior moderator", "moderators", "staff"]):
+            return
+        
+        if member == None:
+            ment = await client.say("```" + str(ctx.message.author) +  ", no user mentioned." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(ment)
+            return
+        member_roles = [r.name.lower() for r in member.roles]
+        
+        if can_manage_roles == False:
+            botperm = await client.say("```" + str(ctx.message.author) + ", I don't have permission to manage roles." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(botperm)
+            return
+       
+        if "warning" not in member_roles:
+            pedro = await client.say("```" + str(ctx.message.author) + ", this user doesn't have Warning role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+            await asyncio.sleep(30)
+            await client.delete_message(pedro)        
+            return 
+        
+        pass
+        
+        await client.remove_roles(member, role)
+        await client.say("**" + str(member) + "** has no longer Warning role!")
+        
+    except:
+        server = server                   
+
 
 #m3
 @client.command(pass_context=True)
