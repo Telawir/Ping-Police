@@ -119,7 +119,7 @@ async def unmute(ctx, *, member : discord.Member = None):
         user_roles = [r.name.lower() for r in ctx.message.author.roles] 
         server = ctx.message.server
         channel = ctx.message.channel
-        can_manage_roles = server.permissions_for(server.me).manage_roles
+        can_manage_roles = channel.permissions_for(server.me).manage_roles
         role = discord.utils.get(server.roles,name="Muted")  
 
         if not any(r in user_roles for r in["senior moderator", "moderators", "staff"]):
@@ -160,7 +160,7 @@ async def delwarn(ctx, *, member : discord.Member = None):
         user_roles = [r.name.lower() for r in ctx.message.author.roles] 
         server = ctx.message.server
         channel = ctx.message.channel
-        can_manage_roles = server.permissions_for(server.me).manage_roles
+        can_manage_roles = channel.permissions_for(server.me).manage_roles
         role = discord.utils.get(server.roles,name="Warning")  
 
         if not any(r in user_roles for r in["senior moderator", "moderators", "staff"]):
