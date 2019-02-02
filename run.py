@@ -5,6 +5,7 @@ import time
 import os
 
 from config import link, prefix, ownerid
+from dontpingthedevslist import nmlist
 from discord.ext.commands import Bot
 from datetime import datetime, timezone
 
@@ -62,8 +63,7 @@ async def on_message(message):
                     #except Exception as e:
                     #    print(e)
                     
-    if any(word in message.content for word in["<@478459374944387072>", "<@418462700633587713>", "<@464347218904612884>", "<@453929203897991179>", "<@224809879884398592>", "<@354641560979111936>", "<@371976663098982400>", "<@311130875461107722>", "<@334269708268470293>", "<@163270868938653698>", "<@281067479927881740>", "<@405654489987547146>", "<@197130820975067137>", "<@258540501261746176>", "<@300978444962103296>", "<@278537813849538562>"]):
-
+    if any(x in message.content for x in nmlist):
                 
         if not belo == 415885418903371777: #kogama community
             if message.author.server_permissions.ban_members == False:
