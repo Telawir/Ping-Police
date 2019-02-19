@@ -35,7 +35,10 @@ async def on_message(message):
     urbo = message.channel
     urbo = client.get_channel("450347278759100445") #kogama-community-log
     harpo = message.channel
-    harpo = client.get_channel("444589577341108225")
+    harpo = client.get_channel("444589577341108225") #kds-log
+    cerbo = message.channel
+    cerbo = client.get_channel("547516455785070612") #kogamabr-log
+    
     
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     await client.change_presence(game=discord.Game(name="Don't ping the devs"))
@@ -65,7 +68,7 @@ async def on_message(message):
                     
     if any(x in message.content for x in nmlist):
                 
-        if not belo == 415885418903371777: #kogama community
+        if belo == 1: #kogama community
             if message.author.server_permissions.ban_members == False:
                 try:
                     await client.send_message(urbo, str(server) + server.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date)
@@ -132,7 +135,62 @@ async def on_message(message):
                         await client.send_message(kergo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Warning" + '\n' + "**Message content**: ```" + str(message.content) + "```")
                     except:
                         pass
-                        
+                    
+        if belo == 547448615187251200: #kogamabr
+            if message.author.id == 415794283744985098:
+                return
+            if not any(r in user_roles for r in["staff", "gerente da comunidade"]):
+                try:
+                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                   
+                except Exception as e:
+                    print(e)
+                if "warning" in user_roles:
+                    try:
+                        await client.add_roles(message.author, mutedrole)
+                    except:
+                        try:
+                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                        except:
+                            pass
+                        norolemuted = await client.send_message(message.channel, "``` I can't find Muted role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        await asyncio.sleep(30)
+                        try:
+                            await client.delete_message(norolemuted)
+                        except:
+                            return
+                        return
+                    try:
+                        await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Mute" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                    except:
+                        pass
+                    warn = await client.send_message(message.channel, message.author.mention + ", you have been muted for disregarding the previous warning and pinging the developer.")
+                    try:
+                        await client.remove_roles(message.author, warningrole)
+                    except:
+                        pass
+                    await asyncio.sleep(600)
+                    try:                        
+                        await client.remove_roles(message.author, mutedrole)
+                    except:
+                        return
+                else:   
+                    try:
+                        await client.add_roles(message.author, warningrole)
+                    except Exception as e:
+                        try:
+                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                        except:
+                            pass
+                        norolewarning = await client.send_message(message.channel, "``` I couldn't find Warning role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        await asyncio.sleep(30)
+                        try:
+                            await client.delete_message(norolewarning)
+                        except:
+                            return
+                    try:
+                        await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Warning" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                    except:
+                        pass                
     await client.process_commands(message)
 
     
@@ -148,7 +206,7 @@ async def unmute(ctx, *, member : discord.Member = None):
         can_manage_roles = (server.me).server_permissions.manage_roles
         role = discord.utils.get(server.roles,name="Muted")  
 
-        if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff"]):
+        if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff", "gerente da comunidade"]):
             return
         
         if member == None:
@@ -189,7 +247,7 @@ async def delwarn(ctx, *, member : discord.Member = None):
         can_manage_roles = (server.me).server_permissions.manage_roles
         role = discord.utils.get(server.roles,name="Warning")  
 
-        if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff"]):
+        if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff", "gerente da comunidade"]):
             return
         
         if member == None:
