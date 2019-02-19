@@ -139,7 +139,7 @@ async def on_message(message):
         if belo == 547448615187251200: #kogamabr
             if message.author.id == 415794283744985098:
                 return
-            if not any(r in user_roles for r in["staff", "gerente da comunidade"]):
+            if not any(r in user_roles for r in["staff", "gerente da comunidade", "moderador iniciante"]):
                 try:
                     msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                   
                 except Exception as e:
