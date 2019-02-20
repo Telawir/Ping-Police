@@ -141,7 +141,7 @@ async def on_message(message):
                 return
             if not any(r in user_roles for r in["staff", "gerente da comunidade", "moderador iniciante"]):
                 try:
-                    msg = await client.send_message(message.channel, "Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                   
+                    msg = await client.send_message(message.channel, "Não mencione os Desenvolvedores," + " " + str(mem) + " com ID de usuário " + str(memid))                   
                 except Exception as e:
                     print(e)
                 if "warning" in user_roles:
@@ -152,7 +152,7 @@ async def on_message(message):
                             await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment" + '\n' + "**Exception: **" + str(e) + '\n' + "**Message content**: ```" + str(message.content) + "```")
                         except:
                             pass
-                        norolemuted = await client.send_message(message.channel, "``` I can't find Muted role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        norolemuted = await client.send_message(message.channel, "``` Eu não consegui achar o cargo de Muted, ele está em um nível acima do meu cargo mais alto ou eu não tenho permissão para gerenciar cargos."  + '\n' + "-- Esta mensagem será apagada automaticamente em 30 segundos. --```")
                         await asyncio.sleep(30)
                         await client.delete_message(norolemuted)
                         return
@@ -160,7 +160,7 @@ async def on_message(message):
                         await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Mute" + '\n' + "**Message content**: ```" + str(message.content) + "```")
                     except:
                         pass
-                    warn = await client.send_message(message.channel, message.author.mention + ", you have been muted for disregarding the previous warning and pinging the developer.")
+                    warn = await client.send_message(message.channel, message.author.mention + ", você foi silenciado por ignorar seu aviso anterior sobre mencionar os desenvolvedores.")
                     try:
                         await client.remove_roles(message.author, warningrole)
                     except:
@@ -178,7 +178,7 @@ async def on_message(message):
                             await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment" + '\n' + "**Exception: **" + str(e) + '\n' + "**Message content**: ```" + str(message.content) + "```")
                         except:
                             pass
-                        norolewarning = await client.send_message(message.channel, "``` I couldn't find Warning role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
+                        norolewarning = await client.send_message(message.channel, "``` Eu não consegui achar o cargo de Warning, ele está em um nível acima do meu cargo mais alto ou eu não tenho permissão para gerenciar cargos."  + '\n' + "-- Esta mensagem será apagada automaticamente em 30 segundos. --```")
                         await asyncio.sleep(30)
                         try:
                             await client.delete_message(norolewarning)
