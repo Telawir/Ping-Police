@@ -147,17 +147,14 @@ async def on_message(message):
                 if "warning" in user_roles:
                     try:
                         await client.add_roles(message.author, mutedrole)
-                    except:
+                    except Exception as e:
                         try:
-                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Mute~~ / exeption occured - no punishment" + '\n' + "**Exception: **" + str(e) + '\n' + "**Message content**: ```" + str(message.content) + "```")
                         except:
                             pass
                         norolemuted = await client.send_message(message.channel, "``` I can't find Muted role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
                         await asyncio.sleep(30)
-                        try:
-                            await client.delete_message(norolemuted)
-                        except:
-                            return
+                        await client.delete_message(norolemuted)
                         return
                     try:
                         await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** Mute" + '\n' + "**Message content**: ```" + str(message.content) + "```")
@@ -178,7 +175,7 @@ async def on_message(message):
                         await client.add_roles(message.author, warningrole)
                     except Exception as e:
                         try:
-                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment" + '\n' + "**Message content**: ```" + str(message.content) + "```")
+                            await client.send_message(cerbo, "Server: " + str(server) + ", server id: " + server.id + '\n' + "**Channel**: " + str(channel) + ", channel id: " + channel.id + '\n' + "**User:** " + mem + " " + memid + '\n' + date + '\n' + "**Punishment:** ~~Warning~~ / exeption occured - no punishment" + '\n' + "**Exception: **" + str(e) + '\n' + "**Message content**: ```" + str(message.content) + "```")
                         except:
                             pass
                         norolewarning = await client.send_message(message.channel, "``` I couldn't find Warning role, it's the higher rank than my highest role or I don't have permission to manage roles."  + '\n' + "-- This message will be deleted automatically in 30 seconds. --```")
