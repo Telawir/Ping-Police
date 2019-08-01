@@ -9,14 +9,10 @@ from dontpingthedevslist import nmlist
 from discord.ext.commands import Bot
 from datetime import datetime, timezone
 
+##
 client = Bot(prefix)
 client.remove_command('help')
 
-class MyClass:
-    level = "0"
-    def function(self):
-        print("This is a message inside the class.")
-security = MyClass() # czyli to, co jest w nawiasie w level
 
 @client.event
 async def on_ready():
@@ -38,9 +34,11 @@ async def on_command_error(ctx, error):
         klorg=str(error)
         if (ctx.command == unmute or ctx.command == delwarn): #and ("not found" in klorg):                      
             if isinstance(error, discord.ext.commands.errors.UserInputError):
-                await ctx.send("```An error occured: " + str(error) + '\n' + "-- This message will be deleted automatically in 30 seconds. --```", delete_after=30)
+                #await ctx.send("```An error occured: " + str(error) + '\n' + "-- This message will be deleted automatically in 30 seconds. --```", delete_after=30)
+                print(error)
             else:
-                await ctx.send("```An error occured" + '\n' + "Please contact Superplus#2392 if you get that message" + '\n' + "-- This message will be deleted automatically in 180 seconds. --```", delete_after=180)
+                print(error)
+                #await ctx.send("```An error occured" + str(error) + '\n' + "Please contact Superplus#2392 if you get that message" + '\n' + "-- This message will be deleted automatically in 180 seconds. --```", delete_after=180)
 
     
 @client.event
@@ -49,7 +47,7 @@ async def on_message(message):
     channel.id = message.channel.id
     server = message.guild
     server.id = message.guild.id
-    
+    bum = await server.fetch_member(str(message.author.id))
     mutedrole = discord.utils.get(server.roles,name="Muted")
     warningrole = discord.utils.get(server.roles,name="Warning")
     
@@ -63,7 +61,7 @@ async def on_message(message):
     
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
-    user_roles = [r.name.lower() for r in message.author.roles]
+    user_roles = [r.name.lower() for r in bum.roles]
     belo = int(message.guild.id)
     chano = int(message.channel.id)
     mem = str(message.author)
@@ -82,8 +80,7 @@ async def on_message(message):
                         print(e)
                 else:
                     pass
-                    
-                    
+                                    
     if any(x in message.content for x in nmlist):
                                 
         if belo == 415885418903371777: #kogama
@@ -185,9 +182,12 @@ async def on_message(message):
 #3.1
 @client.command(pass_context = True)
 async def unmute(ctx, *, member : discord.Member = None):
-    user_roles = [r.name.lower() for r in ctx.message.author.roles] 
+ 
     server = ctx.message.guild
+   # bum = server.get_member(ctx.message.author.id)
+    bum = await server.fetch_member(str(ctx.message.author.id))
     channel = ctx.message.channel
+    user_roles = [r.name.lower() for r in bum.roles]
     can_manage_roles = (server.me).guild_permissions.manage_roles
     role = discord.utils.get(server.roles,name="Muted")  
 
@@ -211,8 +211,11 @@ async def unmute(ctx, *, member : discord.Member = None):
         
 @client.command(pass_context = True)
 async def delwarn(ctx, member : discord.Member = None):
-    user_roles = [r.name.lower() for r in ctx.message.author.roles]
+
     server = ctx.message.guild
+    #bum = server.get_member(ctx.message.author.id)
+    bum = await server.fetch_member(str(ctx.message.author.id))
+    user_roles = [r.name.lower() for r in bum.roles]
     channel = ctx.message.channel
     can_manage_roles = (server.me).guild_permissions.manage_roles
     role = discord.utils.get(server.roles,name="Warning")  
@@ -234,6 +237,7 @@ async def delwarn(ctx, member : discord.Member = None):
     await member.remove_roles(role, reason=("Role removed by moderator | " + "Responsible moderator: " + (str(ctx.message.author.name) + " (ID:" + str(ctx.message.author.id) + ")")))   
     await ctx.send("**" + str(member) + "** has no longer Warning role!")
                   
+
 
 #m3
 @client.command(pass_context=True)
