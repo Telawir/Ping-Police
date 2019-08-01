@@ -1,17 +1,8 @@
 To-do list:
+*absolutely nothing*
 
-* Dodać wyciszenie czasowe
+Released / 01 Aug 2019: 
+- Rewrote the whole code, updated it to the newest python version
+- Added reasons to the logs 
 
-Done:
-Zmienienie systemu blokad kanałów (01.04.2018)
-  - Zmiana w komendach lockdown, unlock i slock - bot nadpisuje wyłącznie uprawnienie pisania wiadomości, nie zmienia   
-    pozostałcyh uprawnień roli @everyone dla danego kanału lub serwera.
-    
-Wprowadzenie pół-automatycznego systemu ostrzeżeń (01.04.2018)
-  - Jeśli w liście roli na serwerze znajdują się role First warning, Second warning, Third warning, Blinded, to po użyciu komendy 
-    warn użytkownik otrzyma automatycznie rolę w hierarchii wyższą od najwyższej z ról-ostreżeń posiadanych obecnie. 
-  - Zmiany w komunikatach o niemożności przyznania w/w ról; dodanie wzmianki o tym, że brak możliwości przyznania roli  
-    użytkownikowi może być spowodowany nie tylko brakiem odpowiednich uprawnień bota lub moderatora lub brakiem danej roli w liście
-    ról na serwerze, ale też tym, że najwyższa rola, którą posiada bot jest niższa od roli oślepionego lub roli-ostrzeżenia.
-  - Dodanie automatycznego wysyłania do użytkownika informacji o oślepieniu na serwerze po otrzymaniu ostrzeżenia, gdy użytkownik 
-    posiadał trzy ostrzeżenia.
+That's all I guess
