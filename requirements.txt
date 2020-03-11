@@ -2,3 +2,7 @@ discord.py==1.2.3
 aiohttp
 websockets
 chardet
+time
+datetime
+os
+asyncio
