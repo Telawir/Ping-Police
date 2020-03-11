@@ -21,6 +21,8 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print(" ")
+    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    await client.get_channel(546670935986405390).send(str(date))
     print("----------------------")
     print("NIE ZAMYKAĆ TEGO OKNA! xD")
     print("----------------------")
