@@ -3,5 +3,4 @@ aiohttp
 websockets
 chardet
 datetime
-os
 asyncio
