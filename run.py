@@ -69,7 +69,7 @@ async def on_message(message):
     mem = str(message.author)
     memid = str(message.author.id)
     
-    if message.author.id == client.user.id:
+    if int(message.author.id) == int(client.user.id):
         return
     
     if message.content == "<@258664801465532416>":
