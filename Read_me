@@ -1,8 +1,8 @@
-To-do list:
-*absolutely nothing*
-
-Released / 01 Aug 2019: 
+Update | 01 Aug 2019: 
 - Rewrote the whole code, updated it to the newest python version
 - Added reasons to the logs 
 
-That's all I guess
+Patch | 22 Apr 2020
+- fixed an issue with fetchnig member 
+
+
