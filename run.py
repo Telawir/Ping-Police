@@ -49,7 +49,7 @@ async def on_message(message):
     channel.id = message.channel.id
     server = message.guild
     server.id = message.guild.id
-    bum = await server.fetch_member(str(message.author.id))
+    #bum = await server.fetch_member(str(message.author.id))
     mutedrole = discord.utils.get(server.roles,name="Muted")
     warningrole = discord.utils.get(server.roles,name="Warning")
     
@@ -63,7 +63,8 @@ async def on_message(message):
     
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
-    user_roles = [r.name.lower() for r in bum.roles]
+    user_roles = [r.name.lower() for r in (server.get_member(message.author.id)).roles]
+    #user_roles = [r.name.lower() for r in bum.roles]
     belo = int(message.guild.id)
     chano = int(message.channel.id)
     mem = str(message.author)
