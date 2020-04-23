@@ -246,6 +246,10 @@ async def delwarn(ctx, member : discord.Member = None):
 async def setgame(ctx, *, game):
     if ctx.message.author.id == ownerid:
         await client.change_presence(activity=discord.Game(name=game))
-        await ctx.message.delete()
+        try:
+            await ctx.message.delete()
+            await ctx.message.author.send("Game was set to **{}**!".format(game))
+        except Exception as e:
+            await ctx.send
 
 client.run(os.getenv('TOKEN')) 
