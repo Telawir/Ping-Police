@@ -208,7 +208,7 @@ async def unmute(ctx, *, member : discord.Member = None):
         return 
 
     await member.remove_roles(role, reason=("Role removed by moderator | " + "Responsible moderator: " + (str(ctx.message.author.name) + " (ID:" + str(ctx.message.author.id) + ")")))   
-    await ctx.send("**" + str(member) + "** has no longer Muted role!")
+    await ctx.send("**" + str(member) + "** doesn't have Muted role any longer!")
         
         
 @client.command(pass_context = True)
@@ -237,7 +237,7 @@ async def delwarn(ctx, member : discord.Member = None):
         return 
 
     await member.remove_roles(role, reason=("Role removed by moderator | " + "Responsible moderator: " + (str(ctx.message.author.name) + " (ID:" + str(ctx.message.author.id) + ")")))   
-    await ctx.send("**" + str(member) + "** has no longer Warning role!")
+    await ctx.send("**" + str(member) + "** doesn't have Warning role any longer!")
                   
 
 
