@@ -23,6 +23,7 @@ async def on_ready():
     print(" ")
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     await client.get_channel(546670935986405390).send(str(date))
+    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
     print("----------------------")
     print("NIE ZAMYKAĆ TEGO OKNA! xD")
     print("----------------------")
@@ -49,7 +50,7 @@ async def on_message(message):
     channel.id = message.channel.id
     server = message.guild
     server.id = message.guild.id
-    #bum = await server.fetch_member(str(message.author.id))
+    bum = server.get_member(message.author.id) 
     mutedrole = discord.utils.get(server.roles,name="Muted")
     warningrole = discord.utils.get(server.roles,name="Warning")
     
@@ -62,9 +63,7 @@ async def on_message(message):
     
     
     date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
-    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
-    user_roles = [r.name.lower() for r in (server.get_member(message.author.id)).roles]
-    #user_roles = [r.name.lower() for r in bum.roles]
+    user_roles = [r.name.lower() for r in bum.roles]
     belo = int(message.guild.id)
     chano = int(message.channel.id)
     mem = str(message.author)
@@ -245,9 +244,8 @@ async def delwarn(ctx, member : discord.Member = None):
 #m3
 @client.command(pass_context=True)
 async def setgame(ctx, *, game):
-    """Sets my game (Owner only)"""
-    if message.author.id == (ownerid):
-        await client.whisper("Game was set to **{}**!".format(game))
-        await client.change_presence(game=discord.Game(name=game))
+    if ctx.message.author.id == ownerid:
+        await client.change_presence(activity=discord.Game(name=game))
+        await ctx.message.delete()
 
 client.run(os.getenv('TOKEN')) 
