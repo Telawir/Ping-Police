@@ -21,7 +21,8 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print(" ")
-    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")  
     await client.get_channel(546670935986405390).send(str(date))
     await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
     print("----------------------")
@@ -62,7 +63,8 @@ async def on_message(message):
     cerbo = await client.fetch_channel(str("547516455785070612")) #kogamabr-log
     
     
-    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     user_roles = [r.name.lower() for r in bum.roles]
     belo = int(message.guild.id)
     chano = int(message.channel.id)
