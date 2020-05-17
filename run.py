@@ -24,7 +24,7 @@ async def on_ready():
     #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")  
     await client.get_channel(546670935986405390).send(str(date))
-    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
+    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01 | A"))
     print("----------------------")
     print("NIE ZAMYKAĆ TEGO OKNA! xD")
     print("----------------------")
