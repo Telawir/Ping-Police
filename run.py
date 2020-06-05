@@ -1,19 +1,16 @@
+
 import discord
 import asyncio
 import config
 import time
 import os
-
 from config import link, prefix, ownerid
 from dontpingthedevslist import splist, nmlist, rolesk
 from discord.ext.commands import Bot
 from datetime import datetime, timezone, timedelta
-
 ##
 client = Bot(prefix)
 client.remove_command('help')
-
-
 @client.event
 async def on_ready():
     print("----------------------")
@@ -21,10 +18,10 @@ async def on_ready():
     print("Username: %s"%client.user.name)
     print("ID: %s"%client.user.id)
     print(" ")
-    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
-    print (date)
-    await client.get_channel(716353904601858109).send(str(date))
-    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
+    #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")  
+    await client.get_channel(546670935986405390).send(str(date))
+    await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01 | A"))
     print("----------------------")
     print("NIE ZAMYKAĆ TEGO OKNA! xD")
     print("----------------------")
@@ -34,16 +31,15 @@ async def on_ready():
 @client.event
 async def on_command_error(ctx, error):
     user_roles = [r.name.lower() for r in ctx.message.author.roles] 
-    if any(r in user_roles for r in["senior moderator", "moderators", "staff", "kogamate"]):        
+    if any(r in user_roles for r in["senior moderator", "moderators", "staff"]):        
         klorg=str(error)
         if (ctx.command == unmute or ctx.command == delwarn): #and ("not found" in klorg):                      
             if isinstance(error, discord.ext.commands.errors.UserInputError):
-                await ctx.send("Member not found")
+                await ctx.send("```An error occured: " + str(error) + '\n' + "-- This message will be deleted automatically in 30 seconds. --```", delete_after=30)
                 print(error)
             else:
                 print(error)
-                #await ctx.send("```An error occured" + str(error) + '\n' + "Please contact Superplus#2392 if you get that message" + '\n' + "-- This message will be deleted automatically in 180 seconds. --```", delete_after=180)
-
+                await ctx.send("```An error occured -> " + str(error) + '\n' + "Please contact Superplus#2392 if you get that message" + '\n' + "-- This message will be deleted automatically in 180 seconds. --```", delete_after=180)
     
 @client.event
 async def on_message(message):
@@ -51,33 +47,20 @@ async def on_message(message):
     channel.id = message.channel.id
     server = message.guild
     server.id = message.guild.id
-    #if message.guild is None:
-        #if message.content == "hi":
-        #    await message.author.send("Hello! I'm a bot that prevents users from mentioning the developers at the official)            
-        #else:
-        #return
-
-#######!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    await client.get_channel(546670935986405390).send(str(datenastarcie))
-        
-    #bum = await server.get_member(int(message.author.id))
-    bum=server.get_member(message.author.id)
-    if bum is None:
-        return
-    #discord.utils.get(discord.Member(message.author.id))
-    #bum = await server.get_member(message.author.id)
+    bum = server.get_member(message.author.id) 
     mutedrole = discord.utils.get(server.roles,name="Muted")
     warningrole = discord.utils.get(server.roles,name="Warning")
     
     #kergo = message.channel
-    kergo = await client.fetch_channel(str("716353397565030411")) #kogama-log
+    kergo = await client.fetch_channel(str("433644659018039296")) #kogama-log
     #harpo = message.channel
-    harpo = await client.fetch_channel(str("716353478171164824")) #kds-log
+    harpo = await client.fetch_channel(str("444589577341108225")) #kds-log
     #cerbo = message.channel
-    cerbo = await client.fetch_channel(str("716353813354643557")) #kogamabr-log
+    cerbo = await client.fetch_channel(str("547516455785070612")) #kogamabr-log
     
     
-    date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
-    #await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01"))
+    #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
+    date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     user_roles = [r.name.lower() for r in bum.roles]
     belo = int(message.guild.id)
     chano = int(message.channel.id)
@@ -86,25 +69,24 @@ async def on_message(message):
     
     if int(message.author.id) == int(client.user.id):
         return
-
-    #if message.content == "<@146009550699364352>" or message:
-    #    if belo == 415885418903371777:
-    #        if not any(r in user_roles for r in["senior moderator", "moderators", "staff", "kogamate"]):
-    #            if chano == 436444254173397009 or chano == 438976492127387648:
-    #                try:
-    #                    msg = await channel.send("Por favor, escreva sua mensagem na mesma linha da menção," + " " + str(mem) + " with userid " + str(memid))                   
-    #                except Exception as e:
-    #                    print(e)
-    #            else:
-    #                pass
+    
+    if message.content == "<@258664801465532416>":
+        if belo == 415885418903371777:
+            if not any(r in user_roles for r in["senior moderator", "moderators", "staff", "kogamate"]):
+                if chano == 436444254173397009:
+                    try:
+                        msg = await channel.send("Por favor, escreva sua mensagem na mesma linha da menção," + " " + str(mem) + " with userid " + str(memid))                   
+                    except Exception as e:
+                        print(e)
+                else:
+                    pass
                                     
     if any(x in message.content for x in nmlist) or (any(x in message.content for x in splist) and (not any(r in user_roles for r in rolesk))):
                                 
         if belo == 415885418903371777: #kogama
-            #if message.author.id == 415794283744985098:
-                #return
+            if message.author.id == 415794283744985098:
+                return
             if ((any(x in message.content for x in nmlist) and not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff", "kogamate", "bots"])) or (any(x in message.content for x in splist) and (not any(r in user_roles for r in list(rolesk))))):
-                    
                 try:
                     msg = await channel.send("Don't ping the devs," + " " + str(mem) + " with userid " + str(memid))                   
                 except Exception as e:
@@ -150,7 +132,6 @@ async def on_message(message):
                         pass
                     
         if belo == 547448615187251200: #kogamabr
-        #if belo == 433640988074967040: #testowy
             if message.author.id == 415794283744985098:
                 return
             if not any(r in user_roles for r in["staff", "gerente da comunidade", "moderador iniciante"]):
@@ -209,7 +190,6 @@ async def unmute(ctx, *, member : discord.Member = None):
     user_roles = [r.name.lower() for r in bum.roles]
     can_manage_roles = (server.me).guild_permissions.manage_roles
     role = discord.utils.get(server.roles,name="Muted")  
-
     if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff", "gerente da comunidade"]):
         return        
     if member == None:
@@ -223,14 +203,12 @@ async def unmute(ctx, *, member : discord.Member = None):
     if "muted" not in member_roles:
         pedro = await ctx.send("```" + str(ctx.message.author) + ", I can't unmute them, they're not muted." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```", delete_after=30)     
         return 
-
     await member.remove_roles(role, reason=("Role removed by moderator | " + "Responsible moderator: " + (str(ctx.message.author.name) + " (ID:" + str(ctx.message.author.id) + ")")))   
     await ctx.send("**" + str(member) + "** doesn't have Muted role any longer!")
         
         
 @client.command(pass_context = True)
 async def delwarn(ctx, member : discord.Member = None):
-
     server = ctx.message.guild
     #bum = server.get_member(ctx.message.author.id)
     bum = await server.fetch_member(str(ctx.message.author.id))
@@ -238,7 +216,6 @@ async def delwarn(ctx, member : discord.Member = None):
     channel = ctx.message.channel
     can_manage_roles = (server.me).guild_permissions.manage_roles
     role = discord.utils.get(server.roles,name="Warning")  
-
     if not any(r in user_roles for r in["senior moderator", "moderators", "junior moderators", "staff", "gerente da comunidade"]):
         return        
     if (member == None):
@@ -252,20 +229,13 @@ async def delwarn(ctx, member : discord.Member = None):
     if "warning" not in member_roles:
         pedro = await ctx.send("```" + str(ctx.message.author) + ", this user doesn't have Warning role." + '\n' + "-- This message will be deleted automatically in 30 seconds. --```", delete_after=30)        
         return 
-
     await member.remove_roles(role, reason=("Role removed by moderator | " + "Responsible moderator: " + (str(ctx.message.author.name) + " (ID:" + str(ctx.message.author.id) + ")")))   
     await ctx.send("**" + str(member) + "** doesn't have Warning role any longer!")
                   
-
 #m3
 @client.command(pass_context=True)
 async def setgame(ctx, *, game):
     if ctx.message.author.id == ownerid:
         await client.change_presence(activity=discord.Game(name=game))
-        try:
-            await ctx.message.delete()
-            await ctx.message.author.send("Game was set to **{}**!".format(game))
-        except Exception as e:
-            await ctx.send
                       
 client.run(os.getenv('TOKEN')) 
