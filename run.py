@@ -4,7 +4,7 @@ import config
 import time
 import os
 
-from config import link, prefix, ownerid, token
+from config import link, prefix, ownerid
 from dontpingthedevslist import splist, nmlist, rolesk
 from discord.ext.commands import Bot
 from datetime import datetime, timezone, timedelta
