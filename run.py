@@ -20,7 +20,7 @@ async def on_ready():
     print(" ")
     #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")  
-    await client.get_channel(546670935986405390).send(str(date))
+    await client.get_channel(716353904601858109).send(str(date))
     await client.change_presence(activity=discord.Game(name="Don't ping the devs || v1.01 | A"))
     print("----------------------")
     print("NIE ZAMYKAĆ TEGO OKNA! xD")
@@ -52,12 +52,12 @@ async def on_message(message):
     warningrole = discord.utils.get(server.roles,name="Warning")
     
     #kergo = message.channel
-    kergo = await client.fetch_channel(str("433644659018039296")) #kogama-log
+    kergo = await client.fetch_channel(str("716353397565030411")) #kogama-log
     #harpo = message.channel
-    harpo = await client.fetch_channel(str("444589577341108225")) #kds-log
+    harpo = await client.fetch_channel(str("716353478171164824")) #kds-log
     #cerbo = message.channel
-    cerbo = await client.fetch_channel(str("547516455785070612")) #kogamabr-log
-    
+    cerbo = await client.fetch_channel(str("716353813354643557")) #kogamabr-log
+       
     
     #date = datetime.now().strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
     date = (datetime.now() + timedelta(hours = 2)).strftime("**Date: **%A, %B %d, %Y\n**Time: **%I:%M:%S %p")
