@@ -7,7 +7,7 @@ import os
 from config import link, prefix, ownerid
 from dontpingthedevslist import splist, nmlist, rolesk
 from discord.ext.commands import Bot
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone
 ##
 client = Bot(prefix)
 client.remove_command('help')
@@ -237,5 +237,6 @@ async def delwarn(ctx, member : discord.Member = None):
 async def setgame(ctx, *, game):
     if ctx.message.author.id == ownerid:
         await client.change_presence(activity=discord.Game(name=game))
+        return
                       
 client.run(os.getenv('TOKEN')) 
