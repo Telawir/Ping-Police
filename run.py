@@ -7,7 +7,7 @@ import os
 from config import link, prefix, ownerid
 from dontpingthedevslist import splist, nmlist, rolesk
 from discord.ext.commands import Bot
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 ##
 client = Bot(prefix)
 client.remove_command('help')
